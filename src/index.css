@@ -1,13 +1,312 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+*{
+  background-color: black;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.light {
+  color: #A68B67;
+  font-family: 'Open Sans Condensed', sans-serif;
+font-weight: 300;
 }
+
+.medium {
+  color: #A68b67;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: 500;
+  font-size: 22px;
+}
+
+.regular {
+  color: #A68B67 ;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: 600;
+
+}
+
+.semibold {
+  color: #A68B67;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: 700;
+  
+}
+
+.semibolditalic{
+  color: #A68B67;
+  font-family: 'Open Sans Condensed', sans-serif;
+font-weight: 700;
+font-style: italic;
+
+}
+
+
+
+
+/* text */
+.text-custom {
+  color: #A68B67;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 22px;
+}
+.text-custom-ficha {
+  color: #A68B67;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 25x;
+  
+}
+
+.text-custom-where {
+  color: #A68B67;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 20px;
+}
+
+
+
+.btn-custom {
+  background-color: #A68B67;
+
+}
+
+
+/* header */
+
+.navbar-brand img {
+    width: 180px;
+    height: auto;
+}
+
+.img-countries {
+  margin-right: 80px;
+}
+
+.navbar-toggler {
+    position: fixed;
+    top: 45px; 
+    right: 10px; 
+    z-index: 1;
+  }
+
+.nav-item a{
+    margin-left: 15px;
+    font-size: 25px;
+   
+}
+.nav-item a:hover {
+    transform: scale(1.1);
+  }
+
+  .esp img, 
+  .ing img,
+  .por img {
+    width: 40px;
+    margin: 10px;
+    margin-right: 0;
+    cursor: pointer;
+  }
+
+  .esp img:hover, 
+  .ing img:hover,
+  .por img:hover {
+    transform: scale(1.2);
+    
+  }
+ 
+
+/* carrousel */
+@media (max-width: 768px) {
+.text-custom p {
+  margin-left: 5px;
+}
+
+.col-md-6 img {
+  margin-top: 30px;
+}
+.image-container img {
+  margin-top: 40px;
+}
+
+.reciclaje, 
+.senasa {
+  text-align: center;
+}
+.esp img, 
+.ing img,
+.por img {
+  width: 30px;
+  margin-top: 2px;
+  margin-left: 15px;
+}
+
+.esp img:hover, 
+.ing img:hover,
+.por img:hover {
+  transform: scale(1.2);
+  
+}
+.text-custom-ficha {
+  color: #A68B67;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 20x;
+
+}
+
+}
+
+
+/* main */
+.main {
+    background-color: black;
+}
+
+.imagen {
+  transition: transform 1s ease;
+  width: 600px;
+  margin-left: -150px;
+}
+
+.bolsa {
+  position: relative;
+  overflow: hidden;
+}
+
+
+.imagen:hover {
+  transform: scale(1.5); 
+  transition: transform 1s ease;
+}
+
+.zoomContainer {
+  position: absolute;
+}
+
+.campo img {
+  width: 60%
+}
+
+.image-container img:hover {
+    transform: scale(1.2);
+    transition: transform 0.8s ease; 
+}
+
+.image-container {
+  animation: aparecerDesdeAbajo 3s ease-in-out;
+  opacity: 1;
+}
+
+.value{
+ font-family: 'Open Sans Condensed', sans-serif;
+font-weight: 600;
+
+}
+
+.card {
+  animation: aparecerDesdeAbajo 2s ease-in-out;
+  opacity: 1;
+}
+
+@keyframes aparecerDesdeAbajo {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card:hover {
+border-radius: 15px;
+box-shadow: 0px 0px 5px 5px #a68b67;
+-webkit-box-shadow: 0px 0px 5px 5px #A68B67;
+transform: rotate(360deg);
+cursor: pointer;
+}
+
+/* footer */
+.list-unstyled a:hover {
+  border-bottom: 1px solid #A68B67;
+}
+
+
+.login-box input:focus,
+.login-box textarea:focus
+ {
+    border-color: #A68b67; 
+    box-shadow: 0 0 5px rgba(166, 139, 103, 0.5); 
+   
+}
+
+.reciclaje img {
+  width: 45px;
+}
+
+.senasa img {
+  width: 75px;
+}
+
+.select select:focus
+ {
+    border-color: #a68b67; 
+    box-shadow: 0 0 5px rgba(166, 139, 103, 0.5);
+}
+
+@media (max-width: 350px) {
+  .navbar-brand img {
+    margin-top: -10px;
+    width: 120px;
+    height: auto;
+
+  }
+  .select {
+    margin-top: -10px;
+  }
+  
+ 
+}
+
+
+.form-group input::placeholder {
+  color: #A68B67;
+}
+
+.form-group textarea::placeholder {
+  color: #A68B67;
+}
+
+
+
+.form-group input:focus{
+  color: #A68B67;
+}
+
+
+.form-group textarea:focus {
+  color: #A68B67;
+}
+.main h1 {
+  text-align: start;
+  margin-left: 15px;
+ }
+
+
+
+@media (max-width: 700px) {
+  .campo img {
+    width: 100%;
+  }
+  .navbar-brand img {
+    width: 150px;
+    height: auto;
+    padding: 0;
+}
+
+.imagen:hover {
+  transform: scale(1.5);
+}
+
+
+.ppm {
+  font-size: 90%;
+}
+}
+
