@@ -65,7 +65,9 @@ font-style: italic;
   background-color: #A68B67;
 
 }
-
+.main-container {
+  margin-top: 56px;
+}
 
 /* header */
 
@@ -188,7 +190,7 @@ font-style: italic;
 }
 
 .image-container {
-  animation: aparecerDesdeAbajo 3s ease-in-out;
+  animation: aparecerDesdeAbajo 1s ease-in-out;
   opacity: 1;
 }
 
@@ -199,7 +201,7 @@ font-weight: 600;
 }
 
 .card {
-  animation: aparecerDesdeAbajo 2s ease-in-out;
+  animation: aparecerDesdeAbajo 1s ease-in-out;
   opacity: 1;
 }
 

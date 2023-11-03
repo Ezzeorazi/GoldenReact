@@ -3,7 +3,7 @@ import React from 'react'
 export const Beneficios = () => {
   return (
     <>
-    <h2 className="semibold text-center" >BENEFICIOS DE GOLDEN HORSES</h2>
+    <h2 className="semibold text-center " >BENEFICIOS DE GOLDEN HORSES</h2>
     <div className="container-fluid">
         <div className="row justify-content-center m-0">
             <div className="col-md-2 col-8 mb-4 mt-5 ">

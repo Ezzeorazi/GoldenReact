@@ -10,7 +10,7 @@ export const InfoNutricional = () => {
   }
   return (
     <>
-        <div className="main bg-black" >
+        <div className="main bg-black " >
       <div className="container ">
         <h2 className="semibold" >INFORMACIÓN NUTRICIONAL</h2>
       </div>

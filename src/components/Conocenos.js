@@ -3,7 +3,7 @@ import React from 'react'
 export const Conocenos = () => {
   return (
     <>
-    <div className="container" >
+    <div className="container " >
     <h1 className="semibold ms-5 mb-4" >SOMOS GOLDEN HORSES</h1>
     <div>    
         <div className="col">

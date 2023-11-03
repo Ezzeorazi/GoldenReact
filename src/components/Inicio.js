@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export const Inicio = () => {
   return (
     <>
-      <div id="carouselExampleSlidesOnly" className="carousel slide" data-bs-ride="carousel">
+      <div id="carouselExampleSlidesOnly" className="carousel slide " data-bs-ride="carousel">
         <div className="carousel-inner">
           <div className="carousel-item active">
             <img src="/image/golden-horses-gana-exito-alimento.webp" className="d-none d-md-block w-100" alt="Desktop" />
