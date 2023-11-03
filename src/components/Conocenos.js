@@ -2,8 +2,8 @@ import React from 'react'
 
 export const Conocenos = () => {
   return (
-    <>
-    <div className="container animate__animated animate__backInRight" >
+    <div className='animate__animated animate__backInRight' >
+    <div className="container " >
     <h1 className="semibold ms-5 mb-4" >SOMOS GOLDEN HORSES</h1>
     <div>    
         <div className="col">
@@ -25,6 +25,6 @@ export const Conocenos = () => {
       </div>
     </div>
 </div>
-</>
+</div>
   )
 }
