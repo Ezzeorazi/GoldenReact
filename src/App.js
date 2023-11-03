@@ -1,6 +1,5 @@
 
 import './App.css';
-import { Footer } from './components/Footer';
 
 import { RouterPrincipal } from './components/router/RouterPrincipal';
 
@@ -11,7 +10,7 @@ function App() {
     <>
       
       <RouterPrincipal/>
-      <Footer/>
+     
     </>
   );
 }

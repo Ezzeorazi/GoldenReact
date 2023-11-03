@@ -1,4 +1,7 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMap, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
 
 export const Footer = () => {
@@ -62,7 +65,7 @@ export const Footer = () => {
               <h3 className="mb-4 pt-5 semibold">DÓNDE ESTAMOS</h3>
               <ul className="list-unstyled">
                 <li className="mb-3">
-                  <i className="fab fa-whatsapp text-custom-where"></i>
+                <FontAwesomeIcon icon={faWhatsapp} className='text-custom-where me-1'/>
                   <a
                     className="text-decoration-none text-custom-where"
                     href="https://wa.me/11111111111"
@@ -71,7 +74,7 @@ export const Footer = () => {
                   </a>
                 </li>
                 <li className="mb-3">
-                  <i className="fas fa-envelope text-custom-where"></i>
+                <FontAwesomeIcon icon={faMap} className='text-custom-where me-1'/>
                   <a
                     className="text-decoration-none text-custom-where"
                     href="mailto:contacto@TuEmpresa.com.ar"
@@ -81,7 +84,7 @@ export const Footer = () => {
                 </li>
                 <li className="mb-3">
                   <p className="mb-1 text-custom-where">Su empresa S.R.L</p>
-                  <i className="fa-regular fa-map text-custom-where"></i>
+                  <FontAwesomeIcon icon={faEnvelope} className='text-custom-where me-1'/>
                   <a
                     className="text-decoration-none text-custom-where"
                     href="http://maps.google.com/?q=Su direccion Rosario-Santa Fe-Argentina"
