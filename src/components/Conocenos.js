@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Conocenos = () => {
   return (
-    <div className='animate__animated animate__backInRight' >
+    <div className='animate__animated animate__fadeIn' >
     <div className="container " >
     <h1 className="semibold ms-5 mb-4" >SOMOS GOLDEN HORSES</h1>
     <div>    

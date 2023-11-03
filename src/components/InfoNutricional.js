@@ -9,7 +9,7 @@ export const InfoNutricional = () => {
     fontSize: '22px'
   }
   return (
-    <div className='animate__animated animate__backInRight'>
+    <div className='animate__animated animate__fadeIn'>
         <div className="main bg-black " >
       <div className="container ">
         <h2 className="semibold" >INFORMACIÓN NUTRICIONAL</h2>
