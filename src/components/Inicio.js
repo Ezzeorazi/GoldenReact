@@ -7,17 +7,17 @@ export const Inicio = () => {
     <div className='animate__animated animate__fadeIn'>
       <div id="carouselExampleSlidesOnly" className="carousel slide " data-bs-ride="carousel">
         <div className="carousel-inner">
-          <div className="carousel-item active">
+          <div className="carousel-item active" data-interval="1000">
             <img src="/image/golden-horses-gana-exito-alimento.webp" className="d-none d-md-block w-100" alt="Desktop" />
             <img src="/image/golden-horses-gana-exito-alimento-mobile.webp" className="d-block d-md-none w-100" alt="Mobile" />
             
           </div>
-          <div className="carousel-item">
+          <div className="carousel-item" data-interval="1000">
             <img src="/image/golden-horses-nutricion-animal-equinos-pc.webp" className="d-none d-md-block w-100" alt="Desktop" />
             <img src="image/golden-horses-nutricion-animal-equinos.webp" className="d-block d-md-none w-100" alt="Mobile" />
             
           </div>
-          <div className="carousel-item">
+          <div className="carousel-item" data-interval="1000">
             <img src="image/golden-horses-trazabilidad-alimentos.webp" className="d-none d-md-block w-100" alt="Desktop" />
             <img src="image/golden-horses-trazabilidad-alimentos-mobile.webp" className="d-block d-md-none w-100" alt="Mobile" />
             
