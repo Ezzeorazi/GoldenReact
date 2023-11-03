@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export const Inicio = () => {
   return (
-    <>
+    <div className='animate__animated animate__backInRight'>
       <div id="carouselExampleSlidesOnly" className="carousel slide " data-bs-ride="carousel">
         <div className="carousel-inner">
           <div className="carousel-item active">
@@ -53,6 +53,6 @@ export const Inicio = () => {
               </div>
               </div>
               </div>
-              </>
+              </div>
   )
 }

@@ -15,7 +15,8 @@ export const RouterPrincipal = () => {
 
  <section className='contenido-principal'>
       <Routes>
-        <Route path="/" element={<Inicio />} />
+        <Route path="/" element={<Navigate to="/inicio" />} />
+        <Route path="/inicio" element={<Inicio />} />
         <Route path="/conocenos" element={<Conocenos />} />
         <Route path="/beneficios" element={<Beneficios />} />
         <Route path="/infoNutricional" element={<InfoNutricional />} />

@@ -5,6 +5,8 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Importar CSS de Bootstrap
 // Opcional: importar los JS de Bootstrap si necesitas componentes interactivos
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import 'animate.css';
+
 
 
 

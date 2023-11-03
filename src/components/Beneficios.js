@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Beneficios = () => {
   return (
-    <>
+    <div className='animate__animated animate__backInRight'>
     <h2 className="semibold text-center " >BENEFICIOS DE GOLDEN HORSES</h2>
     <div className="container-fluid">
         <div className="row justify-content-center m-0">
@@ -48,6 +48,6 @@ export const Beneficios = () => {
             </div>
         </div>
     </div>
-    </>
+    </div>
   )
 }
