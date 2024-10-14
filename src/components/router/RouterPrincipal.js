@@ -7,10 +7,12 @@ import { Beneficios } from '../Beneficios'
 import { InfoNutricional } from '../InfoNutricional'
 import { HeaderNav } from '../layout/HeaderNav'
 import { Footer } from '../layout/Footer'
+import ScrollToTop from '../ScrollToTop'
 
 export const RouterPrincipal = () => {
   return (
  <BrowserRouter>
+ <ScrollToTop/>
  <HeaderNav/>
 
  <section className='contenido-principal'>
