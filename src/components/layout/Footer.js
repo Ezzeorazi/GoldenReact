@@ -13,7 +13,7 @@ export const Footer = () => {
             <div className="col-md-8">
               <div className="login-box bg-black rounded">
                 <h3 className="mb-4 pt-5 semibold">CONTACTANOS</h3>
-                <form action="" method="">
+                <form action="https://formsubmit.co/1d57691f4369fd9d543ddb9cb2604cd9" method="POST">
                   <div className="mb-3 form-group">
                     <input
                       type="text"
@@ -68,30 +68,30 @@ export const Footer = () => {
                 <FontAwesomeIcon icon={faWhatsapp} className='text-custom-where me-1'/>
                   <a
                     className="text-decoration-none text-custom-where"
-                    href="https://wa.me/11111111111"
+                    href="https://wa.me/5493471621535"
                   >
-                    +54 9 1111 111111
+                    +54 9 3471 621535
                   </a>
                 </li>
                 <li className="mb-3">
                 <FontAwesomeIcon icon={faMap} className='text-custom-where me-1'/>
                   <a
                     className="text-decoration-none text-custom-where"
-                    href="mailto:contacto@TuEmpresa.com.ar"
+                    href="mailto:somosgoldenhorses@gmail.com"
                   >
-                    contacto@TuEmpresa.com.ar
+                    somosgoldenhorses@gmail.com
                   </a>
                 </li>
                 <li className="mb-3">
-                  <p className="mb-1 text-custom-where">Su empresa S.R.L</p>
+                  <p className="mb-1 text-custom-where">Agropecuaria Los Nonos S.R.L</p>
                   <FontAwesomeIcon icon={faEnvelope} className='text-custom-where me-1'/>
                   <a
                     className="text-decoration-none text-custom-where"
-                    href="http://maps.google.com/?q=Su direccion Rosario-Santa Fe-Argentina"
+                    href="https://www.google.com/maps/search/Flotron%201923%20Armstrong%20Santa%20Fe%20Argentina"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Su direccion Rosario-Santa Fe-Argentina
+                    Flotron 1923 Armstrong-Santa Fe-Argentina
                   </a>
                 </li>
               </ul>
@@ -113,7 +113,7 @@ export const Footer = () => {
           <div className="col-md-5 mt-3 text-end">
             <div className="footer bg-black small text-center text-white-50">
               <div className="container px-4 px-lg-5">
-                &copy; Pixel Maker - Todos los derechos reservados
+              &copy; {new Date().getFullYear()} Golden Horses - Todos los derechos reservados - 
               </div>
             </div>
           </div>

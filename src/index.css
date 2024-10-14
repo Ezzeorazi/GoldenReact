@@ -225,6 +225,10 @@ cursor: pointer;
 }
 
 /* footer */
+
+#footer {
+  margin-bottom: 20px;
+}
 .list-unstyled a:hover {
   border-bottom: 1px solid #A68B67;
 }
