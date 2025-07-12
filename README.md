@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# Golden Horses Web
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Sitio web desarrollado en React para la empresa **Golden Horses**, un concentrado energético para la nutrición equina. Incluye información sobre el producto, beneficios, datos nutricionales y un formulario de contacto.
 
-## Available Scripts
+## Características principales
 
-In the project directory, you can run:
+- Navegación SPA con **React Router**.
+- Estilos y componentes visuales basados en **Bootstrap 5** y **animate.css**.
+- Páginas disponibles:
+  - **Inicio**: Carrusel de imágenes y presentación del producto.
+  - **Quiénes somos**: Detalles de la empresa y su trayectoria.
+  - **Beneficios**: Tarjetas con ventajas del alimento.
+  - **Información nutricional**: Tabla detallada de composición y recomendaciones de uso.
+  - **Contacto**: Formulario que envía datos mediante [FormSubmit](https://formsubmit.co/).
+- Componentes reutilizables de cabecera (HeaderNav), pie de página (Footer) y utilidades como ScrollToTop.
 
-### `npm start`
+## Requisitos
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Node.js 16 o superior
+- npm
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Instalación
 
-### `npm test`
+1. Clona este repositorio y entra en la carpeta del proyecto.
+2. Ejecuta:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm install
+```
 
-### `npm run build`
+para instalar las dependencias.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Uso en desarrollo
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Lanza el modo de desarrollo con:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm start
+```
 
-### `npm run eject`
+La aplicación estará disponible en `http://localhost:3000/` y recargará automáticamente al modificar los archivos.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Construir para producción
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Para generar los archivos optimizados en la carpeta `build` ejecuta:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+npm run build
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Luego puedes desplegar los archivos contenidos en `build` en el servidor de tu preferencia.
 
-## Learn More
+## Estructura del proyecto
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- `src/` contiene todo el código fuente de React.
+- `public/` incluye archivos estáticos e imágenes utilizadas por el sitio.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Licencia
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Este proyecto se distribuye bajo la licencia MIT.
