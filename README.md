@@ -14,41 +14,8 @@ Sitio web desarrollado en React para la empresa **Golden Horses**, un concentrad
   - **Contacto**: Formulario que envía datos mediante [FormSubmit](https://formsubmit.co/).
 - Componentes reutilizables de cabecera (HeaderNav), pie de página (Footer) y utilidades como ScrollToTop.
 
-## Requisitos
 
-- Node.js 16 o superior
-- npm
 
-## Instalación
-
-1. Clona este repositorio y entra en la carpeta del proyecto.
-2. Ejecuta:
-
-```bash
-npm install
-```
-
-para instalar las dependencias.
-
-## Uso en desarrollo
-
-Lanza el modo de desarrollo con:
-
-```bash
-npm start
-```
-
-La aplicación estará disponible en `http://localhost:3000/` y recargará automáticamente al modificar los archivos.
-
-## Construir para producción
-
-Para generar los archivos optimizados en la carpeta `build` ejecuta:
-
-```bash
-npm run build
-```
-
-Luego puedes desplegar los archivos contenidos en `build` en el servidor de tu preferencia.
 
 ## Estructura del proyecto
 
@@ -57,4 +24,4 @@ Luego puedes desplegar los archivos contenidos en `build` en el servidor de tu p
 
 ## Licencia
 
-Este proyecto se distribuye bajo la licencia MIT.
+Este proyecto se distribuye bajo la licencia Ezequiel ORazi
