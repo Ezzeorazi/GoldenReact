@@ -19,7 +19,8 @@ export function Conocenos() {
           alt="Golden Horses campo"
           className="absolute inset-0 w-full h-full object-cover object-center brightness-[0.3]"
         />
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+        {/* pt-[100px] compensa el navbar fijo para que el H1 no quede pisado. */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 pt-[100px]">
           <h1 className="font-condensed font-bold text-gold tracking-[5px] uppercase text-4xl md:text-5xl mb-4">
             {data.heroTitulo}
           </h1>

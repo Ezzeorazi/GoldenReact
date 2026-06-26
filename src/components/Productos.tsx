@@ -15,6 +15,20 @@ const waLink = (p: Producto) => {
   return `https://wa.me/${WP_NUMERO}?text=${encodeURIComponent(msg)}`
 }
 
+/** Imagen de producto que entra con un fade suave al terminar de cargar. */
+function FadeImg({ src, alt, className }: { src: string; alt: string; className: string }) {
+  const [loaded, setLoaded] = useState(false)
+  return (
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      onLoad={() => setLoaded(true)}
+      className={`${className} transition-[opacity,transform] duration-700 ease-out ${loaded ? 'opacity-100' : 'opacity-0'}`}
+    />
+  )
+}
+
 function TablaComposicion({ filas }: { filas: ComposicionRow[] }) {
   return (
     <table className="w-full border-collapse">
@@ -35,7 +49,7 @@ function TablaComposicion({ filas }: { filas: ComposicionRow[] }) {
 }
 
 export function Productos() {
-  const { data: productos } = useProductos()
+  const { data: productos, loading } = useProductos()
   const [modal, setModal] = useState<Producto | null>(null)
 
   const abrirModal  = (p: Producto) => setModal(p)
@@ -51,18 +65,16 @@ export function Productos() {
 
       {/* ── Hero ── */}
       <div className="section-hero">
-        <h1 className="font-condensed font-bold text-gold tracking-[5px] uppercase text-4xl mb-3">
+        <h2 className="font-condensed font-bold text-gold tracking-[5px] uppercase text-4xl mb-3">
           Nuestros Productos
-        </h1>
-        <p className="font-condensed text-gold/90 text-lg max-w-sm mx-auto">
-          Nutrición equina de excelencia, procesada en nuestra propia finca
-        </p>
+        </h2>
       </div>
 
       {/* ── Grid ── */}
       <div className="max-w-5xl mx-auto px-4 py-14">
+        {/* Mientras carga desde Supabase no mostramos productos por defecto. */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 justify-items-center">
-          {productos.map(p => (
+          {!loading && productos.map(p => (
             <div
               key={p.id}
               className="w-full max-w-sm flex flex-col bg-[#0a0a0a]
@@ -75,10 +87,10 @@ export function Productos() {
                 className="relative overflow-hidden bg-[#f1ede6] aspect-[4/3] cursor-zoom-in group"
                 onClick={() => abrirModal(p)}
               >
-                <img
+                <FadeImg
                   src={p.imagen}
                   alt={p.nombre}
-                  className="w-full h-full object-contain p-8 transition-transform duration-500 group-hover:scale-[1.06]"
+                  className="w-full h-full object-contain p-8 group-hover:scale-[1.06]"
                 />
                 <div className="absolute inset-0 bg-black/55 flex flex-col items-center justify-center gap-2.5
                                 opacity-0 group-hover:opacity-100 transition-opacity duration-300">

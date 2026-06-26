@@ -15,7 +15,7 @@ export function HeaderNav() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-black border-b border-gold/20 h-[100px] flex items-center px-5">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/55 backdrop-blur-md border-b border-gold/20 h-[100px] flex items-center px-5 shadow-[0_10px_30px_-8px_rgba(0,0,0,0.7)]">
         {/* Logo */}
         <NavLink to="/" className="flex-1">
           <img src="/image/logo.webp" alt="Golden Horses" className="h-20 md:h-24 w-auto" />
