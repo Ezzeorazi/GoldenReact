@@ -7,12 +7,6 @@ import { useSeccion } from '../lib/content'
 import { Seo } from '../lib/seo'
 import type { Slide, Tam } from '../lib/types'
 
-const NAV_BUTTONS = [
-  { to: '/conocenos',  img: '/image/boton quienes somos-14.png', alt: 'Quiénes somos' },
-  { to: '/beneficios', img: '/image/botones iconos-15.png',      alt: 'Beneficios' },
-  { to: '/productos',  img: '/image/botones iconos-16.png',      alt: 'Productos' },
-]
-
 const esExterno = (link: string) => /^https?:\/\//i.test(link)
 
 // Destino del botón "Ver producto" de cada bloque destacado (por orden).
@@ -172,21 +166,6 @@ export function Inicio() {
         )}
       </div>
 
-      {/* ── Botones de navegación ── */}
-      <div className="max-w-5xl mx-auto px-4 py-8 md:py-12">
-        <div className="grid grid-cols-3 gap-3 md:gap-6">
-          {NAV_BUTTONS.map(({ to, img, alt }) => (
-            <Link key={to} to={to} className="block group overflow-hidden rounded-xl">
-              <img
-                src={img}
-                alt={alt}
-                className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
-              />
-            </Link>
-          ))}
-        </div>
-      </div>
-
       {/* ── Historia de la marca — línea de tiempo (replicada de Quiénes somos) ── */}
       {conocenos.hitos.length > 0 && (
         <div className="border-t border-gold/10 bg-[#050505] py-14">
@@ -197,23 +176,58 @@ export function Inicio() {
             <div className="gold-divider mx-auto" />
           </div>
 
-          <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          {/* Timeline horizontal — desktop */}
+          <div className="hidden md:flex max-w-6xl mx-auto px-6">
             {conocenos.hitos.map((h, idx) => (
-              <div
-                key={idx}
-                className="flex flex-col gap-3 p-6 border border-gold/10 rounded-xl
-                           hover:border-gold/30 hover:bg-gold/[0.02] transition-all duration-300"
-              >
+              <div key={idx} className="flex-1 flex flex-col items-center text-center px-3">
+                {/* Riel con la línea y el punto */}
+                <div className="relative w-full flex items-center justify-center mb-5">
+                  {idx !== 0 && (
+                    <span className="absolute right-1/2 left-0 top-1/2 -translate-y-1/2 h-px bg-gold/30" />
+                  )}
+                  {idx !== conocenos.hitos.length - 1 && (
+                    <span className="absolute left-1/2 right-0 top-1/2 -translate-y-1/2 h-px bg-gold/30" />
+                  )}
+                  <span className="relative z-10 w-4 h-4 rounded-full bg-gold ring-4 ring-[#050505]" />
+                </div>
                 <span className="font-condensed font-bold text-gold text-sm border border-gold/30
-                                 bg-gold/10 rounded-lg px-3 py-1.5 self-start leading-tight">
+                                 bg-gold/10 rounded-lg px-3 py-1.5 leading-tight mb-3">
                   {h.year}
                 </span>
-                <h4 className="font-condensed font-bold text-gold tracking-[1.5px] uppercase text-base">
+                <h4 className="font-condensed font-bold text-gold tracking-[1.5px] uppercase text-base mb-2">
                   {h.titulo}
                 </h4>
-                <p className="font-condensed text-gold/85 text-base leading-relaxed">
+                <p className="font-condensed text-gold/85 text-sm leading-relaxed">
                   {h.desc}
                 </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Timeline vertical — mobile */}
+          <div className="md:hidden max-w-md mx-auto px-6 flex flex-col">
+            {conocenos.hitos.map((h, idx) => (
+              <div key={idx} className="flex gap-4">
+                {/* Riel: punto + línea hacia el siguiente */}
+                <div className="flex flex-col items-center">
+                  <span className="w-4 h-4 rounded-full bg-gold shrink-0 mt-1.5" />
+                  {idx !== conocenos.hitos.length - 1 && (
+                    <span className="w-px flex-1 bg-gold/30 my-1" />
+                  )}
+                </div>
+                {/* Contenido */}
+                <div className={idx !== conocenos.hitos.length - 1 ? 'pb-8' : ''}>
+                  <span className="inline-block font-condensed font-bold text-gold text-sm border border-gold/30
+                                   bg-gold/10 rounded-lg px-3 py-1.5 leading-tight mb-2">
+                    {h.year}
+                  </span>
+                  <h4 className="font-condensed font-bold text-gold tracking-[1.5px] uppercase text-base mb-1">
+                    {h.titulo}
+                  </h4>
+                  <p className="font-condensed text-gold/85 text-base leading-relaxed">
+                    {h.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
