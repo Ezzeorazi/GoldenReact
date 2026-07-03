@@ -3,7 +3,7 @@
 //   2. Se muestra mientras cargan los datos remotos (sin parpadeos vacíos).
 //   3. Es la misma información que se inserta como seed en supabase/schema.sql.
 
-import type { Producto, ConocenosData, BeneficiosData, InicioData } from '../lib/types'
+import type { Producto, ConocenosData, BeneficiosData, InicioData, DestacadoData } from '../lib/types'
 
 export const INICIO_DEFAULT: InicioData = {
   waNumero: '5493471621535',
@@ -97,6 +97,31 @@ export const CONOCENOS_DEFAULT: ConocenosData = {
     { year: '2019', titulo: 'Planta propia',         desc: 'Instalación de planta de extrusión propia para el procesamiento de granos y elaboración de suplementos concentrados.' },
     { year: '2021', titulo: 'Nace Golden Horses',    desc: 'Desarrollo del alimento concentrado energético específico para nutrición equina, aprovechando años de experiencia en procesamiento de granos.' },
     { year: 'Hoy',  titulo: 'Distribución nacional', desc: 'Presencia en todo el país con certificación SENASA y compromiso con el reciclado responsable.' },
+  ],
+}
+
+export const DESTACADO_DEFAULT: DestacadoData = {
+  items: [
+    {
+      titulo:    'Alta Potencia',
+      imagen:    '',
+      imagenAlt: 'Golden Horses — Alta Potencia',
+      puntos: [
+        'Aporte energético altamente eficiente para caballos de alta exigencia',
+        'Almidón precocido que evita fermentaciones y reduce el riesgo de cólicos',
+        'Favorece el desarrollo muscular magro y la vitalidad',
+      ],
+    },
+    {
+      titulo:    'Golden Recría',
+      imagen:    '',
+      imagenAlt: 'Golden Horses — Golden Recría',
+      puntos: [
+        'Proporciona nutrientes esenciales para un crecimiento óptimo',
+        'Disminuye el estrés al destete en potrillos',
+        'Favorece la producción de leche',
+      ],
+    },
   ],
 }
 

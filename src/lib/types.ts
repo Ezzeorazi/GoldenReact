@@ -73,5 +73,18 @@ export interface InicioData {
   slides:   Slide[]
 }
 
+/** Un producto destacado del home (imagen + título + puntos con tilde). */
+export interface DestacadoItem {
+  titulo:    string
+  imagen:    string
+  imagenAlt: string
+  puntos:    string[]
+}
+
+/** Sección destacada del home: uno o varios productos. */
+export interface DestacadoData {
+  items: DestacadoItem[]
+}
+
 /** Claves de la tabla `secciones`. */
-export type SeccionClave = 'inicio' | 'conocenos' | 'beneficios'
+export type SeccionClave = 'inicio' | 'conocenos' | 'beneficios' | 'destacado'

@@ -7,6 +7,7 @@ const ACCESOS = [
   { to: '/admin/productos',  titulo: 'Productos',     desc: 'Crear, editar y eliminar productos. Cada producto alimenta también la sección de Info Nutricional.' },
   { to: '/admin/conocenos',  titulo: 'Quiénes somos', desc: 'Editar los textos, párrafos e hitos de la historia de la empresa.' },
   { to: '/admin/beneficios', titulo: 'Beneficios',    desc: 'Editar los beneficios del producto: título, descripción e ícono.' },
+  { to: '/admin/destacado',  titulo: 'Destacada',     desc: 'Sección del home debajo de la historia: imagen, título y puntos con tilde.' },
 ]
 
 export function Dashboard() {
@@ -117,6 +118,18 @@ export function Dashboard() {
             ['Título del hero', 'El título grande arriba. Ej: "Beneficios Comprobados".'],
             ['Subtítulo del hero', 'La frase debajo del título.'],
             ['Lista de beneficios', 'Cada beneficio tiene un Ícono (imagen), un Título y una Descripción. Agregá con "+ Beneficio" o eliminá con la ✕. El orden es el que se muestra.'],
+          ]} />
+          <P className="mt-3 text-gold/55 text-base">No te olvides de tocar <B>Guardar cambios</B> al terminar.</P>
+        </Seccion>
+
+        <Seccion titulo="Destacada — productos del home">
+          <P>Es la sección que aparece en el inicio, <B>debajo de la línea histórica</B>. Sirve para destacar productos con una imagen, un título y una lista de puntos con tilde dorado.</P>
+          <Campos items={[
+            ['Producto', 'Agregá uno con "+ Producto" o eliminá con la ✕. En la web los productos se muestran uno debajo del otro, alternando la imagen de lado.'],
+            ['Imagen', 'La foto del producto. Subí un archivo o pegá una URL. Si la dejás vacía, ese producto se muestra solo con el texto centrado.'],
+            ['Texto alternativo', 'Describe la imagen para accesibilidad y SEO.'],
+            ['Título', 'El nombre del producto. Ej: "Alta Potencia", "Golden Recría".'],
+            ['Puntos', 'Cada punto se muestra con un tilde dorado. Agregá con "+ Punto" y borrá con la ✕.'],
           ]} />
           <P className="mt-3 text-gold/55 text-base">No te olvides de tocar <B>Guardar cambios</B> al terminar.</P>
         </Seccion>

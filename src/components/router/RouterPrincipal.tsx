@@ -17,6 +17,7 @@ import { InicioAdmin } from '../admin/InicioAdmin'
 import { ProductosAdmin } from '../admin/ProductosAdmin'
 import { ConocenosAdmin } from '../admin/ConocenosAdmin'
 import { BeneficiosAdmin } from '../admin/BeneficiosAdmin'
+import { DestacadoAdmin } from '../admin/DestacadoAdmin'
 
 /** Layout del sitio público: header + contenido + footer. */
 function PublicLayout() {
@@ -46,6 +47,7 @@ export function RouterPrincipal() {
               <Route path="productos"  element={<ProductosAdmin />} />
               <Route path="conocenos"  element={<ConocenosAdmin />} />
               <Route path="beneficios" element={<BeneficiosAdmin />} />
+              <Route path="destacado"  element={<DestacadoAdmin />} />
             </Route>
           </Route>
 

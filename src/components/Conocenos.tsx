@@ -48,7 +48,7 @@ export function Conocenos() {
       {/* ── Timeline horizontal ── */}
       {data.hitos.length > 0 && (
         <div className="border-t border-gold/10 bg-[#050505] py-14">
-          <div className="max-w-5xl mx-auto px-6 grid grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {data.hitos.map((h, idx) => (
               <div
                 key={idx}

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons'
+import { faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import { useSeccion } from '../lib/content'
 import { Seo } from '../lib/seo'
 import type { Slide, Tam } from '../lib/types'
@@ -93,6 +94,7 @@ function SlideOverlay({ slide, waNumero }: { slide: Slide; waNumero: string }) {
 export function Inicio() {
   const { data, loading } = useSeccion('inicio')
   const { data: conocenos } = useSeccion('conocenos')
+  const { data: destacado } = useSeccion('destacado')
   const slides = data.slides
   const [current, setCurrent] = useState(0)
 
@@ -191,7 +193,7 @@ export function Inicio() {
             <div className="gold-divider mx-auto" />
           </div>
 
-          <div className="max-w-5xl mx-auto px-6 grid grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {conocenos.hitos.map((h, idx) => (
               <div
                 key={idx}
@@ -216,6 +218,53 @@ export function Inicio() {
             <Link to="/conocenos" className="btn-gold">
               Conocé más
             </Link>
+          </div>
+        </div>
+      )}
+
+      {/* ── Productos destacados (editable en /admin → Destacada) ── */}
+      {destacado.items.length > 0 && (
+        <div className="border-t border-gold/10 py-14 md:py-20 px-6">
+          <div className="max-w-5xl mx-auto flex flex-col gap-16 md:gap-24">
+            {destacado.items.map((item, idx) => (
+              <div
+                key={idx}
+                className="grid md:grid-cols-2 gap-8 md:gap-14 items-center"
+              >
+                {/* Imagen (alterna de lado en desktop) */}
+                {item.imagen && (
+                  <div className={idx % 2 === 1 ? 'md:order-2' : ''}>
+                    <img
+                      src={item.imagen}
+                      alt={item.imagenAlt || item.titulo}
+                      className="w-full h-auto rounded-2xl"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+
+                {/* Texto + puntos */}
+                <div className={`${idx % 2 === 1 ? 'md:order-1' : ''} ${item.imagen ? '' : 'md:col-span-2 text-center'}`}>
+                  {item.titulo && (
+                    <h2 className="font-condensed font-bold text-gold tracking-[2px] uppercase text-3xl md:text-4xl mb-4">
+                      {item.titulo}
+                    </h2>
+                  )}
+                  <div className={`gold-divider ${item.imagen ? '' : 'mx-auto'}`} />
+                  <ul className="flex flex-col gap-4 mt-6">
+                    {item.puntos.map((p, j) => (
+                      <li
+                        key={j}
+                        className="flex items-start gap-3 font-condensed text-gold/90 text-lg md:text-xl leading-relaxed"
+                      >
+                        <FontAwesomeIcon icon={faCircleCheck} className="text-gold text-xl mt-1 flex-shrink-0" />
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       )}

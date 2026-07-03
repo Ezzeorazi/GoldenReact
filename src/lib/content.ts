@@ -9,6 +9,7 @@ import type {
   ConocenosData,
   BeneficiosData,
   InicioData,
+  DestacadoData,
   SeccionClave,
 } from './types'
 import {
@@ -16,6 +17,7 @@ import {
   CONOCENOS_DEFAULT,
   BENEFICIOS_DEFAULT,
   INICIO_DEFAULT,
+  DESTACADO_DEFAULT,
 } from '../data/defaults'
 
 // ───────────────────────── Productos ─────────────────────────
@@ -79,13 +81,15 @@ const SECCION_DEFAULT = {
   inicio:     INICIO_DEFAULT,
   conocenos:  CONOCENOS_DEFAULT,
   beneficios: BENEFICIOS_DEFAULT,
+  destacado:  DESTACADO_DEFAULT,
 }
 
-type SeccionData = InicioData | ConocenosData | BeneficiosData
+type SeccionData = InicioData | ConocenosData | BeneficiosData | DestacadoData
 
 export async function fetchSeccion(clave: 'inicio'): Promise<InicioData>
 export async function fetchSeccion(clave: 'conocenos'): Promise<ConocenosData>
 export async function fetchSeccion(clave: 'beneficios'): Promise<BeneficiosData>
+export async function fetchSeccion(clave: 'destacado'): Promise<DestacadoData>
 export async function fetchSeccion(clave: SeccionClave): Promise<SeccionData> {
   const fallback = SECCION_DEFAULT[clave]
   if (!supabase) return fallback
@@ -151,6 +155,7 @@ export function useProductos(): AsyncState<Producto[]> & { reload: () => void } 
 export function useSeccion(clave: 'inicio'): AsyncState<InicioData>
 export function useSeccion(clave: 'conocenos'): AsyncState<ConocenosData>
 export function useSeccion(clave: 'beneficios'): AsyncState<BeneficiosData>
+export function useSeccion(clave: 'destacado'): AsyncState<DestacadoData>
 export function useSeccion(clave: SeccionClave): AsyncState<SeccionData> {
   const [data, setData] = useState<SeccionData>(SECCION_DEFAULT[clave])
   const [loading, setLoading] = useState(isSupabaseConfigured)
