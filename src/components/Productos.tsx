@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { createPortal } from 'react-dom'
 import Zoom from 'react-medium-image-zoom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -48,12 +49,28 @@ function TablaComposicion({ filas }: { filas: ComposicionRow[] }) {
   )
 }
 
+/** Normaliza un texto a slug (sin acentos ni símbolos) para comparar. */
+const slug = (s: string) =>
+  s.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().replace(/[^a-z0-9]+/g, '')
+
 export function Productos() {
   const { data: productos, loading } = useProductos()
   const [modal, setModal] = useState<Producto | null>(null)
+  const [searchParams] = useSearchParams()
 
   const abrirModal  = (p: Producto) => setModal(p)
   const cerrarModal = ()            => setModal(null)
+
+  // Abre la ficha automáticamente si se llega con ?ver=<producto> (ej: desde el home).
+  useEffect(() => {
+    const ver = searchParams.get('ver')
+    if (!ver || loading || productos.length === 0) return
+    const objetivo = slug(ver)
+    const encontrado = productos.find(
+      p => slug(p.nombre).includes(objetivo) || objetivo.includes(slug(p.nombre)),
+    )
+    if (encontrado) setModal(encontrado)
+  }, [searchParams, loading, productos])
 
   return (
     <div className="animate__animated animate__fadeIn">

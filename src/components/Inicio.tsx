@@ -15,6 +15,10 @@ const NAV_BUTTONS = [
 
 const esExterno = (link: string) => /^https?:\/\//i.test(link)
 
+// Destino del botón "Ver producto" de cada bloque destacado (por orden).
+// Abre la ficha del producto en /productos vía el parámetro ?ver=.
+const DESTACADO_LINKS = ['/productos?ver=energetico', '/productos?ver=recria']
+
 const waLink = (numero: string, mensaje: string) =>
   `https://wa.me/${numero.replace(/\D/g, '')}?text=${encodeURIComponent(mensaje)}`
 
@@ -262,6 +266,12 @@ export function Inicio() {
                       </li>
                     ))}
                   </ul>
+
+                  <div className={`mt-8 ${item.imagen ? '' : 'flex justify-center'}`}>
+                    <Link to={DESTACADO_LINKS[idx] ?? '/productos'} className="btn-gold">
+                      Ver producto
+                    </Link>
+                  </div>
                 </div>
               </div>
             ))}
