@@ -185,8 +185,12 @@ function ProductoForm({
         <div className="flex flex-col gap-2">
           {p.composicion.map((row, i) => (
             <div key={i} className="flex gap-2 items-center">
-              <Input className="flex-1" placeholder="Nutriente (ej: Prot. Bruta)" value={row.label} onChange={e => setComp(i, 'label', e.target.value)} />
-              <Input className="w-32" placeholder="Valor" value={row.valor} onChange={e => setComp(i, 'valor', e.target.value)} />
+              <div className="flex-1 min-w-0">
+                <Input placeholder="Nutriente (ej: Prot. Bruta)" value={row.label} onChange={e => setComp(i, 'label', e.target.value)} />
+              </div>
+              <div className="w-32 shrink-0">
+                <Input placeholder="Valor" value={row.valor} onChange={e => setComp(i, 'valor', e.target.value)} />
+              </div>
               <button type="button" onClick={() => delComp(i)} aria-label="Eliminar fila" className="text-red-400/70 hover:text-red-400 px-2 text-xl">✕</button>
             </div>
           ))}

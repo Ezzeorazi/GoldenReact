@@ -82,10 +82,14 @@ export function ConocenosAdmin() {
         <div className="flex flex-col gap-4">
           {d.hitos.map((h, i) => (
             <div key={i} className="border border-gold/15 rounded-xl p-4">
-              <div className="flex gap-2 mb-2">
-                <Input className="w-28" placeholder="Año" value={h.year} onChange={e => setHito(i, 'year', e.target.value)} />
-                <Input className="flex-1" placeholder="Título" value={h.titulo} onChange={e => setHito(i, 'titulo', e.target.value)} />
-                <button type="button" onClick={() => delHito(i)} aria-label="Eliminar hito" className="text-red-400/70 hover:text-red-400 px-2 text-xl">✕</button>
+              <div className="flex gap-2 mb-2 items-start">
+                <div className="w-24 shrink-0">
+                  <Input placeholder="Año" value={h.year} onChange={e => setHito(i, 'year', e.target.value)} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <Input placeholder="Título" value={h.titulo} onChange={e => setHito(i, 'titulo', e.target.value)} />
+                </div>
+                <button type="button" onClick={() => delHito(i)} aria-label="Eliminar hito" className="text-red-400/70 hover:text-red-400 px-2 text-xl leading-none py-2">✕</button>
               </div>
               <Textarea rows={2} placeholder="Descripción" value={h.desc} onChange={e => setHito(i, 'desc', e.target.value)} />
             </div>

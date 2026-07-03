@@ -24,9 +24,9 @@ const H_POS = {
   centro:    'items-center text-center',
   derecha:   'items-end text-right',
 } as const
-const H1_MOVIL:   Record<Tam, string> = { sm: 'text-2xl', md: 'text-3xl', lg: 'text-4xl', xl: 'text-5xl' }
+const H1_MOVIL:   Record<Tam, string> = { sm: 'text-2xl', md: 'text-2xl', lg: 'text-3xl', xl: 'text-4xl' }
 const H1_DESKTOP: Record<Tam, string> = { sm: 'md:text-3xl', md: 'md:text-5xl', lg: 'md:text-6xl', xl: 'md:text-7xl' }
-const FR_MOVIL:   Record<Tam, string> = { sm: 'text-base', md: 'text-lg', lg: 'text-xl', xl: 'text-2xl' }
+const FR_MOVIL:   Record<Tam, string> = { sm: 'text-sm', md: 'text-base', lg: 'text-lg', xl: 'text-xl' }
 const FR_DESKTOP: Record<Tam, string> = { sm: 'md:text-lg', md: 'md:text-2xl', lg: 'md:text-3xl', xl: 'md:text-4xl' }
 
 /** Imagen que entra con un fade suave cuando termina de descargarse,
@@ -57,7 +57,7 @@ function SlideOverlay({ slide, waNumero }: { slide: Slide; waNumero: string }) {
   const tamD = slide.tamDesktop ?? 'lg'
 
   return (
-    <div className={`absolute inset-0 flex flex-col gap-2 px-6 py-10 md:px-16 md:py-16
+    <div className={`absolute inset-0 flex flex-col gap-2 px-6 pt-28 pb-10 md:px-16 md:py-16
                      bg-gradient-to-b from-black/45 via-transparent to-black/60
                      ${V_POS[posV]} ${H_POS[posH]}`}>
       {slide.titulo && (
@@ -76,8 +76,8 @@ function SlideOverlay({ slide, waNumero }: { slide: Slide; waNumero: string }) {
       <div className="flex flex-col md:flex-row flex-wrap gap-3 items-start">
         {slide.ctaTexto && slide.ctaLink && (
           esExterno(slide.ctaLink)
-            ? <a href={slide.ctaLink} target="_blank" rel="noopener noreferrer" className="btn-gold !h-12 !py-0">{slide.ctaTexto}</a>
-            : <Link to={slide.ctaLink} className="btn-gold !h-12 !py-0">{slide.ctaTexto}</Link>
+            ? <a href={slide.ctaLink} target="_blank" rel="noopener noreferrer" className="btn-gold !h-12 !py-0 !px-5 md:!px-8">{slide.ctaTexto}</a>
+            : <Link to={slide.ctaLink} className="btn-gold !h-12 !py-0 !px-5 md:!px-8">{slide.ctaTexto}</Link>
         )}
         {slide.waTexto && waNumero && (
           <a href={waLink(waNumero, slide.waMensaje)} target="_blank" rel="noopener noreferrer" className="btn-wa !h-12 !py-0 !rounded-sm !px-4 md:!px-8">
@@ -141,7 +141,7 @@ export function Inicio() {
                 src={slide.mobile}
                 alt={slide.alt}
                 className="block md:hidden w-full h-full object-cover"
-                objectPosition={slide.objectPosition ?? 'top'}
+                objectPosition={slide.objectPosition ?? 'center'}
                 eager={idx === 0}
               />
               <SlideOverlay slide={slide} waNumero={data.waNumero} />
@@ -167,8 +167,8 @@ export function Inicio() {
       </div>
 
       {/* ── Botones de navegación ── */}
-      <div className="max-w-5xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="max-w-5xl mx-auto px-4 py-8 md:py-12">
+        <div className="grid grid-cols-3 gap-3 md:gap-6">
           {NAV_BUTTONS.map(({ to, img, alt }) => (
             <Link key={to} to={to} className="block group overflow-hidden rounded-xl">
               <img
