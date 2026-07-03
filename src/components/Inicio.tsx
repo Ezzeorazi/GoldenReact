@@ -176,58 +176,42 @@ export function Inicio() {
             <div className="gold-divider mx-auto" />
           </div>
 
-          {/* Timeline horizontal — desktop */}
-          <div className="hidden md:flex max-w-6xl mx-auto px-6">
+          {/* Tarjetas de la línea de tiempo */}
+          <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
             {conocenos.hitos.map((h, idx) => (
-              <div key={idx} className="flex-1 flex flex-col items-center text-center px-3">
-                {/* Riel con la línea y el punto */}
-                <div className="relative w-full flex items-center justify-center mb-5">
-                  {idx !== 0 && (
-                    <span className="absolute right-1/2 left-0 top-1/2 -translate-y-1/2 h-px bg-gold/30" />
-                  )}
-                  {idx !== conocenos.hitos.length - 1 && (
-                    <span className="absolute left-1/2 right-0 top-1/2 -translate-y-1/2 h-px bg-gold/30" />
-                  )}
-                  <span className="relative z-10 w-4 h-4 rounded-full bg-gold ring-4 ring-[#050505]" />
-                </div>
-                <span className="font-condensed font-bold text-gold text-sm border border-gold/30
-                                 bg-gold/10 rounded-lg px-3 py-1.5 leading-tight mb-3">
+              <div
+                key={idx}
+                className="group relative flex flex-col p-6 rounded-2xl overflow-hidden
+                           bg-gradient-to-b from-gold/[0.06] to-transparent
+                           border border-gold/15
+                           transition-all duration-300
+                           hover:border-gold/45 hover:-translate-y-1
+                           hover:shadow-[0_12px_30px_-12px_rgba(166,139,103,0.4)]"
+              >
+                {/* Barra de acento superior (crece en hover) */}
+                <span className="absolute top-0 left-0 h-[3px] w-10 bg-gold/60
+                                 transition-all duration-300 group-hover:w-full group-hover:bg-gold" />
+
+                {/* Número de orden decorativo al fondo */}
+                <span
+                  aria-hidden="true"
+                  className="absolute -top-2 right-2 font-condensed font-bold text-[4.5rem] leading-none
+                             text-gold/[0.05] pointer-events-none select-none
+                             transition-colors duration-300 group-hover:text-gold/[0.09]"
+                >
+                  {String(idx + 1).padStart(2, '0')}
+                </span>
+
+                <span className="relative font-condensed font-bold text-gold text-sm border border-gold/30
+                                 bg-gold/10 rounded-lg px-3 py-1.5 self-start leading-tight mb-3">
                   {h.year}
                 </span>
-                <h4 className="font-condensed font-bold text-gold tracking-[1.5px] uppercase text-base mb-2">
+                <h4 className="relative font-condensed font-bold text-gold tracking-[1.5px] uppercase text-base mb-2">
                   {h.titulo}
                 </h4>
-                <p className="font-condensed text-gold/85 text-sm leading-relaxed">
+                <p className="relative font-condensed text-gold/85 text-sm md:text-base leading-relaxed">
                   {h.desc}
                 </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Timeline vertical — mobile */}
-          <div className="md:hidden max-w-md mx-auto px-6 flex flex-col">
-            {conocenos.hitos.map((h, idx) => (
-              <div key={idx} className="flex gap-4">
-                {/* Riel: punto + línea hacia el siguiente */}
-                <div className="flex flex-col items-center">
-                  <span className="w-4 h-4 rounded-full bg-gold shrink-0 mt-1.5" />
-                  {idx !== conocenos.hitos.length - 1 && (
-                    <span className="w-px flex-1 bg-gold/30 my-1" />
-                  )}
-                </div>
-                {/* Contenido */}
-                <div className={idx !== conocenos.hitos.length - 1 ? 'pb-8' : ''}>
-                  <span className="inline-block font-condensed font-bold text-gold text-sm border border-gold/30
-                                   bg-gold/10 rounded-lg px-3 py-1.5 leading-tight mb-2">
-                    {h.year}
-                  </span>
-                  <h4 className="font-condensed font-bold text-gold tracking-[1.5px] uppercase text-base mb-1">
-                    {h.titulo}
-                  </h4>
-                  <p className="font-condensed text-gold/85 text-base leading-relaxed">
-                    {h.desc}
-                  </p>
-                </div>
               </div>
             ))}
           </div>
