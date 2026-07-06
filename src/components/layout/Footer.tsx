@@ -1,8 +1,37 @@
+import { useState, type FormEvent } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { faWhatsapp, faInstagram } from '@fortawesome/free-brands-svg-icons'
 
+const FORMSUBMIT_ENDPOINT = 'https://formsubmit.co/ajax/1d57691f4369fd9d543ddb9cb2604cd9'
+
 export function Footer() {
+  const [status, setStatus] = useState<'idle' | 'sending' | 'ok' | 'error'>('idle')
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const form = e.currentTarget
+    setStatus('sending')
+    try {
+      const data = Object.fromEntries(new FormData(form).entries())
+      const res = await fetch(FORMSUBMIT_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          ...data,
+          _subject: 'Nuevo contacto desde la web — Golden Horses',
+          _template: 'box',
+          _captcha: 'false',
+        }),
+      })
+      if (!res.ok) throw new Error('bad status')
+      setStatus('ok')
+      form.reset()
+    } catch {
+      setStatus('error')
+    }
+  }
+
   return (
     <footer id="footer" className="bg-[#070707]">
 
@@ -28,11 +57,17 @@ export function Footer() {
             Te asesoramos para elegir el mejor alimento para tus caballos.
           </p>
 
-          <form
-            action="https://formsubmit.co/1d57691f4369fd9d543ddb9cb2604cd9"
-            method="POST"
-            className="flex flex-col gap-5"
-          >
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+            {/* Honeypot anti-spam: invisible para humanos, los bots lo completan */}
+            <input
+              type="text"
+              name="_honey"
+              tabIndex={-1}
+              autoComplete="off"
+              className="hidden"
+              aria-hidden="true"
+            />
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <input
                 type="text"
@@ -56,15 +91,27 @@ export function Footer() {
               name="mensaje"
               placeholder="Mensaje"
               rows={4}
+              required
               autoComplete="off"
               className="input-gold resize-none"
             />
 
             <div>
-              <button type="submit" className="btn-gold">
-                Enviar mensaje
+              <button type="submit" className="btn-gold" disabled={status === 'sending'}>
+                {status === 'sending' ? 'Enviando…' : 'Enviar mensaje'}
               </button>
             </div>
+
+            {status === 'ok' && (
+              <p className="font-condensed text-gold text-base" role="status">
+                ¡Gracias! Tu mensaje fue enviado. Te vamos a responder a la brevedad.
+              </p>
+            )}
+            {status === 'error' && (
+              <p className="font-condensed text-red-400 text-base" role="alert">
+                Hubo un problema al enviar. Probá de nuevo o escribinos a somosgoldenhorses@gmail.com.
+              </p>
+            )}
           </form>
         </div>
 
