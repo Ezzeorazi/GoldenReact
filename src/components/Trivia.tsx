@@ -58,7 +58,7 @@ function Pantalla({ children, ajustado = false }: { children: ReactNode; ajustad
   return (
     <div
       className={`bg-black flex flex-col items-center px-5 relative
-                  ${ajustado ? 'h-[100dvh] overflow-hidden py-4' : 'min-h-[100dvh] py-8'}`}
+                  ${ajustado ? 'h-[100dvh] overflow-hidden py-3 sm:py-4' : 'min-h-[100dvh] py-5 sm:py-8'}`}
     >
       <img
         src="/image/logo.webp"
@@ -69,7 +69,8 @@ function Pantalla({ children, ajustado = false }: { children: ReactNode; ajustad
         onPointerLeave={cancelarPulsacion}
         onPointerCancel={cancelarPulsacion}
         onContextMenu={e => e.preventDefault()}
-        className={`object-contain flex-shrink-0 select-none ${ajustado ? 'h-12 mb-3' : 'h-16 md:h-20 mb-8'}`}
+        className={`object-contain flex-shrink-0 select-none
+                    ${ajustado ? 'h-10 sm:h-12 mb-2 sm:mb-3' : 'h-12 sm:h-16 md:h-20 mb-4 sm:mb-8'}`}
       />
 
       {session && (
@@ -251,12 +252,14 @@ export function Trivia() {
       <Pantalla>
         {seo}
         <div className="text-center animate__animated animate__fadeIn">
-          <h1 className="font-condensed font-bold text-gold tracking-[4px] uppercase text-4xl md:text-5xl mb-3">
+          <h1 className="font-condensed font-bold text-gold tracking-[2px] sm:tracking-[4px] uppercase
+                         text-2xl sm:text-4xl md:text-5xl mb-2 sm:mb-3">
             {data.heroTitulo}
           </h1>
-          <p className="font-condensed text-gold/80 text-xl mb-8">{data.heroSubtitulo}</p>
-          <div className="gold-divider mx-auto" />
-          <p className="font-condensed text-gold/90 text-lg leading-relaxed max-w-lg mx-auto mb-10">
+          <p className="font-condensed text-gold/80 text-base sm:text-xl mb-4 sm:mb-8">{data.heroSubtitulo}</p>
+          <div className="gold-divider mx-auto mb-4 sm:mb-8" />
+          <p className="font-condensed text-gold/90 text-base sm:text-lg leading-snug sm:leading-relaxed
+                        max-w-lg mx-auto mb-6 sm:mb-10">
             {data.reglas}
           </p>
 
@@ -265,7 +268,7 @@ export function Trivia() {
               Todavía no hay preguntas cargadas. Cargalas desde el panel de administración.
             </p>
           ) : (
-            <button onClick={() => setFase('datos')} className="btn-gold text-base px-12 py-4">
+            <button onClick={() => setFase('datos')} className="btn-gold text-base px-10 sm:px-12 py-3.5 sm:py-4">
               Comenzar
             </button>
           )}
@@ -276,19 +279,26 @@ export function Trivia() {
 
   if (fase === 'datos') {
     return (
-      <Pantalla>
+      <Pantalla ajustado>
         {seo}
+        {/* Mismo esquema que la pregunta: encabezado y botones fijos, campos
+            al medio con scroll propio. Así "Empezar a jugar" nunca queda
+            debajo del pliegue, ni siquiera en un celular de 320px con el
+            teclado abierto. */}
         <form
           onSubmit={e => { e.preventDefault(); void comenzarPartida(false) }}
-          className="animate__animated animate__fadeIn"
+          className="flex flex-col h-full min-h-0 animate__animated animate__fadeIn"
         >
-          <h2 className="font-condensed font-bold text-gold tracking-[3px] uppercase text-2xl mb-1.5 text-center">
-            Tus datos
-          </h2>
-          <p className="font-condensed text-gold/60 text-base mb-5 text-center">
-            Los necesitamos para contactarte si ganás el sorteo.
-          </p>
+          <div className="flex-shrink-0 text-center">
+            <h2 className="font-condensed font-bold text-gold tracking-[3px] uppercase text-xl sm:text-2xl mb-1">
+              Tus datos
+            </h2>
+            <p className="font-condensed text-gold/60 text-sm sm:text-base mb-4">
+              Los necesitamos para contactarte si ganás el sorteo.
+            </p>
+          </div>
 
+          <div className="flex-1 min-h-0 overflow-y-auto scrollbar-none">
           <label className="block mb-4">
             <span className="label-eyebrow">Nombre y apellido *</span>
             <input
@@ -327,18 +337,20 @@ export function Trivia() {
             />
           </label>
 
-          <p className="font-condensed text-gold/50 text-sm mb-4">
+          <p className="font-condensed text-gold/50 text-sm mb-2">
             Completá al menos uno de los dos: email o teléfono.
           </p>
+          </div>
 
           {errorForm && (
-            <p className="font-condensed text-red-300 text-base bg-red-500/10 border border-red-500/40 rounded-lg px-4 py-3 mb-5">
+            <p className="flex-shrink-0 font-condensed text-red-300 text-sm sm:text-base bg-red-500/10
+                          border border-red-500/40 rounded-lg px-4 py-2.5 mt-3">
               {errorForm}
             </p>
           )}
 
           {avisoDup && (
-            <div className="bg-amber-500/10 border border-amber-500/40 rounded-lg px-4 py-4 mb-5">
+            <div className="flex-shrink-0 bg-amber-500/10 border border-amber-500/40 rounded-lg px-4 py-3 mt-3">
               <p className="font-condensed text-amber-200 text-base mb-3">
                 Este contacto ya participó del sorteo. Podés jugar igual, pero el registro va a quedar duplicado.
               </p>
@@ -353,9 +365,10 @@ export function Trivia() {
             </div>
           )}
 
-          <div className="flex items-center justify-between gap-4">
-            <button type="button" onClick={reiniciar} className="btn-ghost">Volver</button>
-            <button type="submit" disabled={enviando} className="btn-gold text-base px-10 py-4 disabled:opacity-50">
+          <div className="flex-shrink-0 flex items-center justify-between gap-3 pt-3">
+            <button type="button" onClick={reiniciar} className="btn-ghost flex-shrink-0">Volver</button>
+            <button type="submit" disabled={enviando}
+                    className="btn-gold text-base px-6 sm:px-10 py-3.5 sm:py-4 disabled:opacity-50 flex-1 sm:flex-none">
               {enviando ? 'Un segundo…' : 'Empezar a jugar'}
             </button>
           </div>
@@ -373,12 +386,12 @@ export function Trivia() {
             en un stand es lo único imperdonable. */}
         <div className="flex flex-col h-full min-h-0 animate__animated animate__fadeIn">
           <div className="flex-shrink-0">
-            <p className="font-condensed text-gold/50 tracking-[3px] uppercase text-sm text-center mb-3">
+            <p className="font-condensed text-gold/50 tracking-[3px] uppercase text-xs sm:text-sm text-center mb-2 sm:mb-3">
               Pregunta {indice + 1} de {preguntas.length}
             </p>
 
             {/* Barra de progreso */}
-            <div className="flex gap-1.5 justify-center mb-5">
+            <div className="flex gap-1.5 justify-center mb-3 sm:mb-5">
               {preguntas.map((_, i) => (
                 <span
                   key={i}
@@ -388,12 +401,16 @@ export function Trivia() {
               ))}
             </div>
 
-            <h2 className="font-condensed font-bold text-gold text-2xl md:text-3xl leading-snug text-center mb-6">
+            <h2 className="font-condensed font-bold text-gold text-xl sm:text-2xl md:text-3xl leading-snug text-center mb-4 sm:mb-6">
               {actual.pregunta}
             </h2>
           </div>
 
-          <div className="flex-1 min-h-0 overflow-y-auto scrollbar-none flex flex-col justify-center gap-3">
+          {/* `justify-start`, no `justify-center`: al centrar en un contenedor con
+              scroll, lo que se desborda se va hacia arriba y no hay forma de
+              llegar a ello. En pantallas chicas eso dejaba la primera opción
+              tapada por el enunciado y sin poder tocarse. */}
+          <div className="flex-1 min-h-0 overflow-y-auto scrollbar-none flex flex-col justify-start gap-2.5 sm:gap-3">
             {actual.opciones.map((op, i) => {
               const esCorrecta = i === actual.correcta
               const respondido = elegida !== null
@@ -409,10 +426,11 @@ export function Trivia() {
               return (
                 <button
                   key={i}
+                  data-opcion={i}
                   onClick={() => responder(i)}
                   disabled={respondido}
-                  className={`w-full min-h-[4rem] px-6 py-4 rounded-xl border text-left
-                              font-condensed text-lg leading-snug
+                  className={`w-full min-h-[3.5rem] sm:min-h-[4rem] px-4 sm:px-6 py-3 sm:py-4 rounded-xl border text-left
+                              font-condensed text-base sm:text-lg leading-snug
                               transition-all duration-200 disabled:cursor-default ${estilo}`}
                 >
                   {op}
@@ -424,10 +442,10 @@ export function Trivia() {
           {/* El pie ocupa su lugar desde el arranque aunque esté vacío: si
               apareciera recién al responder, las opciones saltarían justo
               cuando el participante acaba de tocar una. */}
-          <div className="flex-shrink-0 min-h-[8.5rem] flex flex-col justify-end text-center pt-4">
+          <div className="flex-shrink-0 min-h-[6.5rem] sm:min-h-[8.5rem] flex flex-col justify-end text-center pt-3 sm:pt-4">
             {elegida !== null && (
               <div className="animate__animated animate__fadeIn">
-                <p className={`font-condensed font-bold tracking-[2px] uppercase text-lg mb-4
+                <p className={`font-condensed font-bold tracking-[2px] uppercase text-base sm:text-lg mb-3 sm:mb-4
                                ${elegida === actual.correcta ? 'text-green-300' : 'text-red-300'}`}>
                   {elegida === actual.correcta ? '¡Correcto!' : 'Respuesta incorrecta'}
                 </p>
@@ -516,20 +534,22 @@ export function Trivia() {
         {seo}
         <div className="text-center animate__animated animate__fadeIn">
           <p className="label-eyebrow">Resultado</p>
-          <p className="font-condensed font-bold text-gold text-6xl md:text-7xl leading-none my-4">
-            {aciertos}<span className="text-gold/40 text-4xl md:text-5xl"> / {preguntas.length}</span>
+          <p className="font-condensed font-bold text-gold text-5xl sm:text-6xl md:text-7xl leading-none my-3 sm:my-4">
+            {aciertos}<span className="text-gold/40 text-3xl sm:text-4xl md:text-5xl"> / {preguntas.length}</span>
           </p>
 
-          <h2 className={`font-condensed font-bold tracking-[3px] uppercase text-2xl mb-5
+          <h2 className={`font-condensed font-bold tracking-[2px] sm:tracking-[3px] uppercase
+                          text-xl sm:text-2xl mb-3 sm:mb-5
                           ${gano ? 'text-green-300' : 'text-gold/70'}`}>
             {gano ? '¡Participás del sorteo!' : 'Seguí participando'}
           </h2>
 
-          <p className="font-condensed text-gold/90 text-lg leading-relaxed max-w-lg mx-auto mb-10">
+          <p className="font-condensed text-gold/90 text-base sm:text-lg leading-snug sm:leading-relaxed
+                        max-w-lg mx-auto mb-6 sm:mb-10">
             {gano ? data.textoGana : data.textoPierde}
           </p>
 
-          <button onClick={reiniciar} className="btn-gold text-base px-12 py-4">
+          <button onClick={reiniciar} className="btn-gold text-base px-8 sm:px-12 py-3.5 sm:py-4">
             Nuevo participante
           </button>
         </div>

@@ -103,7 +103,8 @@ export function TriviaParticipantes() {
         ].map(k => (
           <Card key={k.label} className="text-center py-4 px-2 sm:px-6">
             <p className="font-condensed font-bold text-gold text-2xl sm:text-3xl leading-none">{k.valor}</p>
-            <p className="font-condensed text-gold/50 text-xs sm:text-sm tracking-[1.5px] uppercase mt-1">{k.label}</p>
+            <p className="font-condensed text-gold/50 text-[0.7rem] sm:text-sm tracking-[0.5px] sm:tracking-[1.5px]
+                          uppercase leading-tight mt-1">{k.label}</p>
           </Card>
         ))}
       </div>
