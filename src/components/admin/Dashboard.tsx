@@ -8,19 +8,21 @@ const ACCESOS = [
   { to: '/admin/conocenos',  titulo: 'Quiénes somos', desc: 'Editar los textos, párrafos e hitos de la historia de la empresa.' },
   { to: '/admin/beneficios', titulo: 'Beneficios',    desc: 'Editar los beneficios del producto: título, descripción e ícono.' },
   { to: '/admin/destacado',  titulo: 'Destacada',     desc: 'Sección del home debajo de la historia: imagen, título y puntos con tilde.' },
+  { to: '/admin/trivia',     titulo: 'Trivia',        desc: 'Preguntas, opciones, respuesta correcta y video de cada una. Es el juego del stand.' },
+  { to: '/admin/participantes', titulo: 'Participantes', desc: 'Quiénes jugaron la trivia, quiénes ganaron, y descarga de los contactos en CSV.' },
 ]
 
 export function Dashboard() {
   return (
     <div>
-      <h2 className="font-condensed font-bold text-gold tracking-[2px] uppercase text-3xl mb-2">Bienvenido</h2>
+      <h2 className="font-condensed font-bold text-gold tracking-[2px] uppercase text-2xl sm:text-3xl mb-2">Bienvenido</h2>
       <p className="font-condensed text-gold/70 text-lg mb-8">
         Desde acá administrás el contenido del sitio. Elegí una sección para empezar
         o leé la guía de uso más abajo.
       </p>
 
       {/* ── Accesos rápidos ── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 mb-12">
         {ACCESOS.map(a => (
           <Link key={a.to} to={a.to}>
             <Card className="h-full hover:border-gold/50 transition-colors">

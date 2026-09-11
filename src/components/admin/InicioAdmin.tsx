@@ -74,7 +74,7 @@ export function InicioAdmin() {
   return (
     <div>
       <div className="flex items-center justify-between mb-2 flex-wrap gap-3">
-        <h2 className="font-condensed font-bold text-gold tracking-[2px] uppercase text-3xl">Banner de inicio</h2>
+        <h2 className="hidden lg:block font-condensed font-bold text-gold tracking-[2px] uppercase text-3xl">Banner de inicio</h2>
         <Btn onClick={guardar} disabled={guardando || !isSupabaseConfigured}>{guardando ? 'Guardando…' : 'Guardar cambios'}</Btn>
       </div>
       <p className="font-condensed text-gold/60 text-base mb-6">
@@ -108,7 +108,7 @@ export function InicioAdmin() {
                 <button type="button" onClick={() => moverSlide(i, 1)} disabled={i === d.slides.length - 1}
                   className="text-gold/70 hover:text-gold disabled:opacity-30 px-2 text-lg" aria-label="Bajar">↓</button>
                 <button type="button" onClick={() => delSlide(i)}
-                  className="text-red-400/70 hover:text-red-400 px-2 text-xl" aria-label="Eliminar slide">✕</button>
+                  className="flex-shrink-0 w-11 h-11 flex items-center justify-center text-red-400/70 hover:text-red-400 text-xl" aria-label="Eliminar slide">✕</button>
               </div>
             </div>
 

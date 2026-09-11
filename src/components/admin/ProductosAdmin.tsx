@@ -58,8 +58,8 @@ export function ProductosAdmin() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
-        <h2 className="font-condensed font-bold text-gold tracking-[2px] uppercase text-3xl">Productos</h2>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+        <h2 className="hidden lg:block font-condensed font-bold text-gold tracking-[2px] uppercase text-3xl">Productos</h2>
         <Btn onClick={() => setEditando({ ...PRODUCTO_VACIO, orden: productos.length + 1 })}>+ Nuevo producto</Btn>
       </div>
 
@@ -73,22 +73,26 @@ export function ProductosAdmin() {
         : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {productos.map(p => (
-              <Card key={p.id} className="flex gap-4 items-start">
-                <div className="w-20 h-20 flex-shrink-0 rounded-lg bg-[#f1ede6] overflow-hidden flex items-center justify-center">
-                  {p.imagen
-                    ? <img src={p.imagen} alt={p.nombre} className="w-full h-full object-contain p-1.5" />
-                    : <span className="text-black/30 text-xs">s/img</span>}
+              <Card key={p.id}>
+                <div className="flex gap-4 items-start">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 rounded-lg bg-[#f1ede6] overflow-hidden flex items-center justify-center">
+                    {p.imagen
+                      ? <img src={p.imagen} alt={p.nombre} className="w-full h-full object-contain p-1.5" />
+                      : <span className="text-black/30 text-xs">s/img</span>}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <h3 className="font-condensed font-bold text-gold text-xl break-words">{p.nombre}</h3>
+                      {!p.activo && <span className="text-xs text-gold/50 border border-gold/30 rounded px-1.5 py-0.5">oculto</span>}
+                    </div>
+                    <p className="font-condensed text-gold/60 text-sm break-words">{p.subtitulo}</p>
+                  </div>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-condensed font-bold text-gold text-xl truncate">{p.nombre}</h3>
-                    {!p.activo && <span className="text-xs text-gold/50 border border-gold/30 rounded px-1.5 py-0.5">oculto</span>}
-                  </div>
-                  <p className="font-condensed text-gold/60 text-sm truncate">{p.subtitulo}</p>
-                  <div className="flex gap-2 mt-3">
-                    <Btn variant="ghost" onClick={() => setEditando(p)}>Editar</Btn>
-                    <Btn variant="danger" onClick={() => handleEliminar(p)}>Eliminar</Btn>
-                  </div>
+                {/* Los dos botones a mitad de ancho cada uno: entran siempre en
+                    una sola fila y son fáciles de tocar. */}
+                <div className="grid grid-cols-2 gap-2 mt-4">
+                  <Btn variant="ghost" onClick={() => setEditando(p)}>Editar</Btn>
+                  <Btn variant="danger" onClick={() => handleEliminar(p)}>Eliminar</Btn>
                 </div>
               </Card>
             ))}
@@ -138,7 +142,7 @@ function ProductoForm({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
         <h2 className="font-condensed font-bold text-gold tracking-[2px] uppercase text-2xl">
           {inicial.id && !inicial.id.startsWith('default-') ? 'Editar producto' : 'Nuevo producto'}
         </h2>
@@ -162,7 +166,7 @@ function ProductoForm({
         <Field label="Ingredientes" hint="Opcional"><Textarea rows={2} value={p.ingredientes} onChange={e => set('ingredientes', e.target.value)} /></Field>
         <Field label="Recomendaciones de uso" hint="Una recomendación por línea"><Textarea rows={4} value={p.uso} onChange={e => set('uso', e.target.value)} /></Field>
 
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5">
           <Field label="Orden" hint="Menor = aparece primero">
             <Input type="number" value={p.orden} onChange={e => set('orden', Number(e.target.value))} />
           </Field>
@@ -188,10 +192,10 @@ function ProductoForm({
               <div className="flex-1 min-w-0">
                 <Input placeholder="Nutriente (ej: Prot. Bruta)" value={row.label} onChange={e => setComp(i, 'label', e.target.value)} />
               </div>
-              <div className="w-32 shrink-0">
+              <div className="w-24 sm:w-32 shrink-0">
                 <Input placeholder="Valor" value={row.valor} onChange={e => setComp(i, 'valor', e.target.value)} />
               </div>
-              <button type="button" onClick={() => delComp(i)} aria-label="Eliminar fila" className="text-red-400/70 hover:text-red-400 px-2 text-xl">✕</button>
+              <button type="button" onClick={() => delComp(i)} aria-label="Eliminar fila" className="flex-shrink-0 w-11 h-11 flex items-center justify-center text-red-400/70 hover:text-red-400 text-xl">✕</button>
             </div>
           ))}
         </div>
@@ -208,7 +212,7 @@ function ProductoForm({
           {p.beneficios.map((b, i) => (
             <div key={i} className="flex gap-2 items-center">
               <Input className="flex-1" placeholder="Beneficio" value={b} onChange={e => setBen(i, e.target.value)} />
-              <button type="button" onClick={() => delBen(i)} aria-label="Eliminar beneficio" className="text-red-400/70 hover:text-red-400 px-2 text-xl">✕</button>
+              <button type="button" onClick={() => delBen(i)} aria-label="Eliminar beneficio" className="flex-shrink-0 w-11 h-11 flex items-center justify-center text-red-400/70 hover:text-red-400 text-xl">✕</button>
             </div>
           ))}
         </div>

@@ -42,8 +42,8 @@ export function DestacadoAdmin() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
-        <h2 className="font-condensed font-bold text-gold tracking-[2px] uppercase text-3xl">Sección destacada</h2>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+        <h2 className="hidden lg:block font-condensed font-bold text-gold tracking-[2px] uppercase text-3xl">Sección destacada</h2>
         <Btn onClick={guardar} disabled={guardando || !isSupabaseConfigured}>{guardando ? 'Guardando…' : 'Guardar cambios'}</Btn>
       </div>
 
@@ -62,7 +62,7 @@ export function DestacadoAdmin() {
           <Card key={i}>
             <div className="flex items-center justify-between mb-3">
               <span className="font-condensed text-gold/50 text-sm tracking-[2px] uppercase">Producto {i + 1}</span>
-              <button type="button" onClick={() => delItem(i)} aria-label="Eliminar producto" className="text-red-400/70 hover:text-red-400 px-2 text-xl">✕</button>
+              <button type="button" onClick={() => delItem(i)} aria-label="Eliminar producto" className="flex-shrink-0 w-11 h-11 flex items-center justify-center text-red-400/70 hover:text-red-400 text-xl">✕</button>
             </div>
 
             <ImageUpload value={it.imagen} onChange={url => setItem(i, 'imagen', url)} carpeta="destacado" label="Imagen" />
@@ -83,7 +83,7 @@ export function DestacadoAdmin() {
                   <div className="flex-1 min-w-0">
                     <Input placeholder={`Punto ${j + 1}`} value={p} onChange={e => setPunto(i, j, e.target.value)} />
                   </div>
-                  <button type="button" onClick={() => delPunto(i, j)} aria-label="Eliminar punto" className="text-red-400/70 hover:text-red-400 px-2 text-xl">✕</button>
+                  <button type="button" onClick={() => delPunto(i, j)} aria-label="Eliminar punto" className="flex-shrink-0 w-11 h-11 flex items-center justify-center text-red-400/70 hover:text-red-400 text-xl">✕</button>
                 </div>
               ))}
               {it.puntos.length === 0 && <p className="font-condensed text-gold/50 text-base">Sin puntos. Agregá uno con el botón.</p>}

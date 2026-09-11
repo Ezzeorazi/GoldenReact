@@ -69,11 +69,13 @@ export function TriviaParticipantes() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
-        <h2 className="font-condensed font-bold text-gold tracking-[2px] uppercase text-3xl">Participantes</h2>
-        <div className="flex gap-2 flex-wrap">
-          <Btn variant="ghost" onClick={() => void cargar()}>Actualizar</Btn>
-          <Btn onClick={() => descargarCsvParticipantes(filtrados)} disabled={filtrados.length === 0}>Descargar CSV</Btn>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+        <h2 className="hidden lg:block font-condensed font-bold text-gold tracking-[2px] uppercase text-3xl">Participantes</h2>
+        <div className="flex gap-2">
+          <Btn variant="ghost" onClick={() => void cargar()} className="flex-1 sm:flex-none">Actualizar</Btn>
+          <Btn onClick={() => descargarCsvParticipantes(filtrados)} disabled={filtrados.length === 0} className="flex-1 sm:flex-none">
+            Descargar CSV
+          </Btn>
         </div>
       </div>
 
@@ -93,15 +95,15 @@ export function TriviaParticipantes() {
       )}
 
       {/* ── Resumen ── */}
-      <div className="grid grid-cols-3 gap-3 mb-6">
+      <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-6">
         {[
           { label: 'Registros',  valor: rows.length },
           { label: 'Terminaron', valor: terminados },
           { label: 'Ganadores',  valor: ganadores },
         ].map(k => (
-          <Card key={k.label} className="text-center py-4">
-            <p className="font-condensed font-bold text-gold text-3xl leading-none">{k.valor}</p>
-            <p className="font-condensed text-gold/50 text-sm tracking-[1.5px] uppercase mt-1">{k.label}</p>
+          <Card key={k.label} className="text-center py-4 px-2 sm:px-6">
+            <p className="font-condensed font-bold text-gold text-2xl sm:text-3xl leading-none">{k.valor}</p>
+            <p className="font-condensed text-gold/50 text-xs sm:text-sm tracking-[1.5px] uppercase mt-1">{k.label}</p>
           </Card>
         ))}
       </div>
@@ -111,12 +113,12 @@ export function TriviaParticipantes() {
         <div className="flex-1 min-w-[220px]">
           <Input placeholder="Buscar por nombre, email o teléfono" value={busqueda} onChange={e => setBusqueda(e.target.value)} />
         </div>
-        <label className="flex items-center gap-2 cursor-pointer">
+        <label className="flex items-center gap-2.5 cursor-pointer min-h-[44px] px-1">
           <input
             type="checkbox"
             checked={soloGanadores}
             onChange={e => setSoloGanadores(e.target.checked)}
-            className="w-4 h-4 accent-[#A68B67]"
+            className="w-5 h-5 accent-[#A68B67] flex-shrink-0"
           />
           <span className="font-condensed text-gold/75 text-sm tracking-[1.5px] uppercase">Solo ganadores</span>
         </label>
@@ -130,51 +132,100 @@ export function TriviaParticipantes() {
           {rows.length === 0 ? 'Todavía no jugó nadie.' : 'Ningún participante coincide con el filtro.'}
         </p>
       ) : (
-        <div className="overflow-x-auto border border-gold/15 rounded-2xl">
-          <table className="w-full text-left border-collapse min-w-[720px]">
-            <thead>
-              <tr className="bg-gold/[0.06]">
-                {['Nombre', 'Email', 'Teléfono', 'Aciertos', 'Ganó', 'Fecha', ''].map(h => (
-                  <th key={h} className="font-condensed text-gold/60 text-xs tracking-[1.5px] uppercase px-4 py-3 whitespace-nowrap">
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {filtrados.map(r => (
-                <tr key={r.id} className="border-t border-gold/10 hover:bg-gold/[0.03] transition-colors">
-                  <td className="font-condensed text-gold/95 px-4 py-3">
-                    {r.nombre}
-                    {!r.finalizado && (
-                      <span className="ml-2 text-xs text-amber-300/80 tracking-wide uppercase">sin terminar</span>
-                    )}
-                  </td>
-                  <td className="font-condensed text-gold/75 px-4 py-3 break-all">{r.email || '—'}</td>
-                  <td className="font-condensed text-gold/75 px-4 py-3 whitespace-nowrap">{r.telefono || '—'}</td>
-                  <td className="font-condensed text-gold/75 px-4 py-3 whitespace-nowrap">
-                    {r.finalizado ? `${r.aciertos} / ${r.total}` : '—'}
-                  </td>
-                  <td className="px-4 py-3">
-                    <span className={`font-condensed text-sm tracking-[1.5px] uppercase px-2.5 py-1 rounded
-                                      ${r.gano ? 'bg-green-500/15 text-green-300' : 'text-gold/40'}`}>
-                      {r.gano ? 'Sí' : 'No'}
-                    </span>
-                  </td>
-                  <td className="font-condensed text-gold/55 px-4 py-3 whitespace-nowrap text-sm">
-                    {new Date(r.created_at).toLocaleString('es-AR')}
-                  </td>
-                  <td className="px-4 py-3">
-                    <button
-                      type="button" onClick={() => void borrar(r)} aria-label={`Eliminar a ${r.nombre}`}
-                      className="text-red-400/60 hover:text-red-400 px-1 text-lg"
-                    >✕</button>
-                  </td>
+        <>
+          {/* ── Tarjetas (celular): una tabla de 7 columnas en un teléfono
+                obliga a scrollear de costado para leer un solo registro. ── */}
+          <div className="md:hidden flex flex-col gap-3">
+            {filtrados.map(r => (
+              <Card key={r.id} className="p-4">
+                <div className="flex items-start justify-between gap-3 mb-2">
+                  <div className="min-w-0">
+                    <p className="font-condensed text-gold/95 text-lg leading-tight break-words">{r.nombre}</p>
+                    <p className="font-condensed text-gold/45 text-xs mt-0.5">
+                      {new Date(r.created_at).toLocaleString('es-AR')}
+                    </p>
+                  </div>
+                  <button
+                    type="button" onClick={() => void borrar(r)} aria-label={`Eliminar a ${r.nombre}`}
+                    className="flex-shrink-0 w-11 h-11 -mr-2 -mt-2 flex items-center justify-center
+                               text-red-400/60 hover:text-red-400 text-xl"
+                  >✕</button>
+                </div>
+
+                <div className="flex flex-col gap-1 mb-3">
+                  {r.email && (
+                    <a href={`mailto:${r.email}`} className="font-condensed text-gold/75 text-base break-all underline decoration-gold/25">
+                      {r.email}
+                    </a>
+                  )}
+                  {r.telefono && (
+                    <a href={`tel:${r.telefono.replace(/\s/g, '')}`} className="font-condensed text-gold/75 text-base underline decoration-gold/25">
+                      {r.telefono}
+                    </a>
+                  )}
+                  {!r.email && !r.telefono && <span className="font-condensed text-gold/40 text-base">Sin contacto</span>}
+                </div>
+
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className={`font-condensed text-xs tracking-[1.5px] uppercase px-2.5 py-1 rounded
+                                    ${r.gano ? 'bg-green-500/15 text-green-300' : 'bg-gold/[0.07] text-gold/50'}`}>
+                    {r.gano ? 'Ganó' : 'No ganó'}
+                  </span>
+                  <span className="font-condensed text-gold/65 text-sm">
+                    {r.finalizado ? `${r.aciertos} de ${r.total}` : 'Sin terminar'}
+                  </span>
+                </div>
+              </Card>
+            ))}
+          </div>
+
+          {/* ── Tabla (tablet y escritorio) ── */}
+          <div className="hidden md:block overflow-x-auto border border-gold/15 rounded-2xl">
+            <table className="w-full text-left border-collapse min-w-[680px]">
+              <thead>
+                <tr className="bg-gold/[0.06]">
+                  {['Nombre', 'Email', 'Teléfono', 'Aciertos', 'Ganó', 'Fecha', ''].map(h => (
+                    <th key={h} className="font-condensed text-gold/60 text-xs tracking-[1.5px] uppercase px-4 py-3 whitespace-nowrap">
+                      {h}
+                    </th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {filtrados.map(r => (
+                  <tr key={r.id} className="border-t border-gold/10 hover:bg-gold/[0.03] transition-colors">
+                    <td className="font-condensed text-gold/95 px-4 py-3">
+                      {r.nombre}
+                      {!r.finalizado && (
+                        <span className="ml-2 text-xs text-amber-300/80 tracking-wide uppercase">sin terminar</span>
+                      )}
+                    </td>
+                    <td className="font-condensed text-gold/75 px-4 py-3 break-all">{r.email || '—'}</td>
+                    <td className="font-condensed text-gold/75 px-4 py-3 whitespace-nowrap">{r.telefono || '—'}</td>
+                    <td className="font-condensed text-gold/75 px-4 py-3 whitespace-nowrap">
+                      {r.finalizado ? `${r.aciertos} / ${r.total}` : '—'}
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className={`font-condensed text-sm tracking-[1.5px] uppercase px-2.5 py-1 rounded
+                                        ${r.gano ? 'bg-green-500/15 text-green-300' : 'text-gold/40'}`}>
+                        {r.gano ? 'Sí' : 'No'}
+                      </span>
+                    </td>
+                    <td className="font-condensed text-gold/55 px-4 py-3 whitespace-nowrap text-sm">
+                      {new Date(r.created_at).toLocaleString('es-AR')}
+                    </td>
+                    <td className="px-4 py-3">
+                      <button
+                        type="button" onClick={() => void borrar(r)} aria-label={`Eliminar a ${r.nombre}`}
+                        className="w-10 h-10 flex items-center justify-center text-red-400/60 hover:text-red-400 text-lg"
+                      >✕</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
 
       {filtrados.length > 0 && (

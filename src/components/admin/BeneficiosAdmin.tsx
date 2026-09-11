@@ -38,8 +38,8 @@ export function BeneficiosAdmin() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
-        <h2 className="font-condensed font-bold text-gold tracking-[2px] uppercase text-3xl">Beneficios</h2>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+        <h2 className="hidden lg:block font-condensed font-bold text-gold tracking-[2px] uppercase text-3xl">Beneficios</h2>
         <Btn onClick={guardar} disabled={guardando || !isSupabaseConfigured}>{guardando ? 'Guardando…' : 'Guardar cambios'}</Btn>
       </div>
 
@@ -64,7 +64,7 @@ export function BeneficiosAdmin() {
           <Card key={i}>
             <div className="flex items-center justify-between mb-3">
               <span className="font-condensed text-gold/50 text-sm tracking-[2px] uppercase">Beneficio {i + 1}</span>
-              <button type="button" onClick={() => delItem(i)} aria-label="Eliminar beneficio" className="text-red-400/70 hover:text-red-400 px-2 text-xl">✕</button>
+              <button type="button" onClick={() => delItem(i)} aria-label="Eliminar beneficio" className="flex-shrink-0 w-11 h-11 flex items-center justify-center text-red-400/70 hover:text-red-400 text-xl">✕</button>
             </div>
             <ImageUpload value={it.icono} onChange={url => setItem(i, 'icono', url)} carpeta="beneficios" label="Ícono" />
             <Field label="Título"><Input value={it.titulo} onChange={e => setItem(i, 'titulo', e.target.value)} /></Field>

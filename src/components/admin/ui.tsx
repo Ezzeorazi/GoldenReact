@@ -3,7 +3,7 @@ import type { ReactNode, InputHTMLAttributes, TextareaHTMLAttributes, SelectHTML
 
 const baseField =
   'w-full bg-[#111] text-gold/95 font-condensed text-lg ' +
-  'border border-gold/25 rounded-lg px-4 py-2.5 outline-none ' +
+  'border border-gold/25 rounded-lg px-4 py-2.5 min-h-[2.75rem] outline-none ' +
   'placeholder-gold/40 focus:border-gold/70 transition-colors'
 
 export function Field({ label, children, hint }: { label: string; children: ReactNode; hint?: string }) {
@@ -36,7 +36,7 @@ export function Select(
 
 export function Card({ children, className = '' }: { children: ReactNode; className?: string }) {
   return (
-    <div className={`bg-[#0a0a0a] border border-gold/15 rounded-2xl p-6 ${className}`}>
+    <div className={`bg-[#0a0a0a] border border-gold/15 rounded-2xl p-4 sm:p-6 ${className}`}>
       {children}
     </div>
   )
@@ -63,7 +63,7 @@ export function Btn({
       onClick={onClick}
       disabled={disabled}
       className={`inline-flex items-center justify-center gap-2 font-condensed font-bold tracking-[2px] uppercase
-                  text-sm px-5 py-2.5 rounded-lg transition-all duration-200
+                  text-sm px-4 sm:px-5 py-2.5 min-h-[2.75rem] rounded-lg transition-all duration-200
                   disabled:opacity-50 disabled:cursor-not-allowed ${styles} ${className}`}
     >
       {children}

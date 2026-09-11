@@ -42,8 +42,8 @@ export function ConocenosAdmin() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
-        <h2 className="font-condensed font-bold text-gold tracking-[2px] uppercase text-3xl">Quiénes somos</h2>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+        <h2 className="hidden lg:block font-condensed font-bold text-gold tracking-[2px] uppercase text-3xl">Quiénes somos</h2>
         <Btn onClick={guardar} disabled={guardando || !isSupabaseConfigured}>{guardando ? 'Guardando…' : 'Guardar cambios'}</Btn>
       </div>
 
@@ -68,7 +68,7 @@ export function ConocenosAdmin() {
           {d.parrafos.map((p, i) => (
             <div key={i} className="flex gap-2 items-start">
               <Textarea className="flex-1" rows={3} value={p} onChange={e => setParr(i, e.target.value)} />
-              <button type="button" onClick={() => delParr(i)} aria-label="Eliminar párrafo" className="text-red-400/70 hover:text-red-400 px-2 text-xl mt-2">✕</button>
+              <button type="button" onClick={() => delParr(i)} aria-label="Eliminar párrafo" className="flex-shrink-0 w-11 h-11 flex items-center justify-center text-red-400/70 hover:text-red-400 text-xl mt-1">✕</button>
             </div>
           ))}
         </div>
@@ -89,7 +89,7 @@ export function ConocenosAdmin() {
                 <div className="flex-1 min-w-0">
                   <Input placeholder="Título" value={h.titulo} onChange={e => setHito(i, 'titulo', e.target.value)} />
                 </div>
-                <button type="button" onClick={() => delHito(i)} aria-label="Eliminar hito" className="text-red-400/70 hover:text-red-400 px-2 text-xl leading-none py-2">✕</button>
+                <button type="button" onClick={() => delHito(i)} aria-label="Eliminar hito" className="flex-shrink-0 w-11 h-11 flex items-center justify-center text-red-400/70 hover:text-red-400 text-xl leading-none">✕</button>
               </div>
               <Textarea rows={2} placeholder="Descripción" value={h.desc} onChange={e => setHito(i, 'desc', e.target.value)} />
             </div>
