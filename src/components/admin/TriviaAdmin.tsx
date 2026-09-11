@@ -138,9 +138,6 @@ export function TriviaAdmin() {
         <Field label="Mensaje al no alcanzar los aciertos">
           <Textarea rows={2} value={d.textoPierde} onChange={e => set('textoPierde', e.target.value)} />
         </Field>
-        <Field label="Texto del checkbox de consentimiento" hint="Es opcional para el participante; queda registrado si lo tildó.">
-          <Textarea rows={2} value={d.legalTexto} onChange={e => set('legalTexto', e.target.value)} />
-        </Field>
       </Card>
 
       {/* ── Banco de preguntas ── */}

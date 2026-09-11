@@ -105,11 +105,13 @@ export function Trivia() {
   const [respuestas, setRespuestas] = useState<TriviaRespuesta[]>([])
 
   const [videoRoto, setVideoRoto]   = useState(false)
+  const [sinSonido, setSinSonido]   = useState(false)
   const [errorForm, setErrorForm]   = useState('')
   const [avisoDup, setAvisoDup]     = useState(false)
   const [enviando, setEnviando]     = useState(false)
 
   const nombreRef = useRef<HTMLInputElement>(null)
+  const videoRef  = useRef<HTMLVideoElement>(null)
 
   // Al abrir la página, reintenta subir lo que haya quedado de un corte de red.
   useEffect(() => { void sincronizarPendientes() }, [])
@@ -117,6 +119,39 @@ export function Trivia() {
   useEffect(() => {
     if (fase === 'datos') nombreRef.current?.focus()
   }, [fase])
+
+  /**
+   * Arranca el video solo al entrar a la fase.
+   *
+   * Los navegadores bloquean la reproducción automática CON sonido salvo que
+   * el usuario haya interactuado con la página. Acá ya tocó varios botones,
+   * así que en la práctica funciona; pero si igual la bloquean (iOS es el más
+   * estricto), en vez de dejar el video parado lo arrancamos en silencio y
+   * ofrecemos un botón para activar el audio.
+   */
+  useEffect(() => {
+    if (fase !== 'video') return
+    const el = videoRef.current
+    if (!el) return
+
+    setSinSonido(false)
+    el.muted = false
+    el.play().catch(() => {
+      el.muted = true
+      setSinSonido(true)
+      el.play().catch(() => {
+        // Ni en silencio: queda con los controles a la vista para tocar play.
+      })
+    })
+  }, [fase, indice])
+
+  const activarSonido = () => {
+    const el = videoRef.current
+    if (!el) return
+    el.muted = false
+    setSinSonido(false)
+    void el.play().catch(() => {})
+  }
 
   const aciertos = respuestas.filter(r => r.correcta).length
   const gano     = aciertos >= data.aciertosParaGanar
@@ -296,16 +331,6 @@ export function Trivia() {
             Completá al menos uno de los dos: email o teléfono.
           </p>
 
-          <label className="flex items-start gap-3 mb-5 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={datos.consentimiento}
-              onChange={e => cambiar('consentimiento', e.target.checked)}
-              className="mt-1 w-5 h-5 accent-gold flex-shrink-0"
-            />
-            <span className="font-condensed text-gold/70 text-base leading-snug">{data.legalTexto}</span>
-          </label>
-
           {errorForm && (
             <p className="font-condensed text-red-300 text-base bg-red-500/10 border border-red-500/40 rounded-lg px-4 py-3 mb-5">
               {errorForm}
@@ -434,11 +459,13 @@ export function Trivia() {
                100% del hueco disponible deja que el ancho se acomode solo. */
             <div className="flex-1 min-h-0 flex items-center justify-center">
               <video
+                ref={videoRef}
                 key={actual.video}
                 src={actual.video}
                 controls
+                autoPlay
                 playsInline
-                preload="metadata"
+                preload="auto"
                 onError={() => setVideoRoto(true)}
                 className="h-full max-h-full w-auto max-w-full rounded-2xl border border-gold/20 bg-black object-contain"
               />
@@ -455,6 +482,16 @@ export function Trivia() {
                 <p className="font-condensed text-gold/35 text-sm break-all">{actual.video}</p>
               )}
             </div>
+          )}
+
+          {sinSonido && (
+            <button
+              onClick={activarSonido}
+              className="flex-shrink-0 mx-auto mt-3 font-condensed text-amber-200 text-base
+                         bg-amber-500/15 border border-amber-500/50 rounded-lg px-5 py-2.5"
+            >
+              Tocá acá para activar el sonido
+            </button>
           )}
 
           {actual.epigrafe && (

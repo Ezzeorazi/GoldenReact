@@ -278,7 +278,7 @@ function celda(v: string | number | boolean): string {
 
 /** CSV separado por `;`, que es lo que espera Excel en español. */
 export function participantesToCsv(rows: TriviaParticipante[]): string {
-  const head = ['Nombre', 'Email', 'Teléfono', 'Aciertos', 'Total', 'Ganó', 'Finalizó', 'Consentimiento', 'Fecha']
+  const head = ['Nombre', 'Email', 'Teléfono', 'Aciertos', 'Total', 'Ganó', 'Finalizó', 'Fecha']
   const body = rows.map(r => [
     celda(r.nombre),
     celda(r.email),
@@ -287,7 +287,6 @@ export function participantesToCsv(rows: TriviaParticipante[]): string {
     celda(r.total),
     celda(r.gano ? 'Sí' : 'No'),
     celda(r.finalizado ? 'Sí' : 'No'),
-    celda(r.consentimiento ? 'Sí' : 'No'),
     celda(new Date(r.created_at).toLocaleString('es-AR')),
   ].join(';'))
   return [head.join(';'), ...body].join('\r\n')

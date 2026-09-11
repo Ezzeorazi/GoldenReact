@@ -118,8 +118,6 @@ export interface TriviaData {
   aciertosParaGanar:   number
   textoGana:           string
   textoPierde:         string
-  /** Leyenda del checkbox de consentimiento (opcional para el participante). */
-  legalTexto:          string
   preguntas:           TriviaPregunta[]
 }
 

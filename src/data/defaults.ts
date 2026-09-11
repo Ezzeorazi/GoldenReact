@@ -150,7 +150,6 @@ export const TRIVIA_DEFAULT: TriviaData = {
   aciertosParaGanar:   2,
   textoGana:           '¡Felicitaciones! Ya estás participando del sorteo de un producto Golden Horses. Te contactamos si resultás ganador.',
   textoPierde:         'Gracias por jugar. Esta vez no alcanzaste los aciertos necesarios, pero te esperamos en el stand para contarte más sobre Golden Horses.',
-  legalTexto:          'Acepto las bases del sorteo y que Golden Horses use mis datos para contactarme.',
   preguntas: [
     {
       id: 'p01',

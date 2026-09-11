@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Trivia Golden Horses — Instructivo para el evento</title>
+<style>
+  @page { size: A4; margin: 14mm 15mm; }
+
+  :root {
+    --oro:      #8A6F4E;
+    --oro-claro:#C7AE8C;
+    --tinta:    #1a1a1a;
+    --gris:     #5c5c5c;
+    --linea:    #d8cfc2;
+    --fondo:    #faf7f2;
+    --ok:       #2f7d4f;
+    --alerta:   #9a6b12;
+    --mal:      #a93226;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 10.2pt;
+    line-height: 1.5;
+    color: var(--tinta);
+  }
+
+  h1 { font-size: 21pt; margin: 0 0 2px; letter-spacing: .5px; color: var(--oro); }
+  h2 {
+    font-size: 12.5pt; margin: 20px 0 8px; color: var(--oro);
+    text-transform: uppercase; letter-spacing: 1.6px;
+    border-bottom: 1.5px solid var(--linea); padding-bottom: 4px;
+  }
+  h3 { font-size: 10.5pt; margin: 12px 0 4px; }
+  p  { margin: 0 0 7px; }
+  ul, ol { margin: 0 0 8px; padding-left: 18px; }
+  li { margin-bottom: 3px; }
+  strong { color: #000; }
+  code {
+    font-family: Consolas, monospace; font-size: 9.2pt;
+    background: #efe9e0; padding: 1px 5px; border-radius: 3px;
+  }
+
+  /* ── Portada ── */
+  .cabecera {
+    border-bottom: 3px solid var(--oro);
+    padding-bottom: 10px; margin-bottom: 4px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .subtitulo { color: var(--gris); font-size: 10pt; }
+  .sello {
+    text-align: right; font-size: 8.5pt; color: var(--gris); line-height: 1.35;
+  }
+
+  /* ── Pasos numerados ── */
+  .pasos { counter-reset: paso; list-style: none; padding: 0; margin: 0; }
+  .pasos > li {
+    counter-increment: paso; position: relative;
+    padding: 0 0 9px 34px; margin-bottom: 4px;
+  }
+  .pasos > li::before {
+    content: counter(paso);
+    position: absolute; left: 0; top: -1px;
+    width: 23px; height: 23px; border-radius: 50%;
+    background: var(--oro); color: #fff;
+    font-size: 11pt; font-weight: bold;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ── Cajas ── */
+  .caja {
+    border: 1px solid var(--linea); border-left: 4px solid var(--oro);
+    background: var(--fondo); padding: 9px 12px; margin: 10px 0; border-radius: 3px;
+  }
+  .caja.alerta { border-left-color: var(--alerta); background: #fdf7e8; }
+  .caja.ok     { border-left-color: var(--ok);     background: #f0f7f2; }
+  .caja p:last-child { margin-bottom: 0; }
+  .caja-titulo {
+    font-weight: bold; text-transform: uppercase; letter-spacing: 1.2px;
+    font-size: 8.5pt; margin-bottom: 4px; color: var(--oro);
+  }
+  .caja.alerta .caja-titulo { color: var(--alerta); }
+  .caja.ok     .caja-titulo { color: var(--ok); }
+
+  /* ── Tablas ── */
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 12px; font-size: 9.6pt; }
+  th {
+    text-align: left; background: var(--oro); color: #fff;
+    padding: 6px 9px; font-size: 8.5pt; text-transform: uppercase; letter-spacing: 1px;
+  }
+  td { padding: 6px 9px; border-bottom: 1px solid var(--linea); vertical-align: top; }
+  tr:nth-child(even) td { background: #faf8f5; }
+
+  /* ── Checklist ── */
+  .check { list-style: none; padding: 0; }
+  .check li { padding-left: 24px; position: relative; margin-bottom: 6px; }
+  .check li::before {
+    content: ""; position: absolute; left: 0; top: 2px;
+    width: 13px; height: 13px; border: 1.5px solid var(--oro); border-radius: 2px;
+  }
+
+  /* ── Flujo del juego ── */
+  .flujo { display: flex; gap: 5px; margin: 10px 0 14px; }
+  .flujo div {
+    flex: 1; text-align: center; padding: 8px 3px;
+    border: 1px solid var(--linea); border-radius: 4px; background: var(--fondo);
+    font-size: 8.6pt; line-height: 1.3;
+  }
+  .flujo div b { display: block; color: var(--oro); font-size: 9.4pt; margin-bottom: 2px; }
+
+  .pagina-nueva { page-break-before: always; }
+  .juntos { page-break-inside: avoid; }
+
+  .pie {
+    margin-top: 18px; padding-top: 8px; border-top: 1px solid var(--linea);
+    font-size: 8.5pt; color: var(--gris);
+  }
+</style>
+</head>
+<body>
+
+<div class="cabecera">
+  <div>
+    <h1>Trivia Golden Horses</h1>
+    <div class="subtitulo">Instructivo para el día del evento</div>
+  </div>
+  <div class="sello">
+    goldenhorses.com.ar/trivia<br>
+    Versión 1 — septiembre 2026
+  </div>
+</div>
+
+<h2>En una línea</h2>
+<p>
+  El visitante deja su nombre y un contacto, responde <strong>4 preguntas</strong> tomadas al azar
+  y, si acierta <strong>2 o más</strong>, participa del sorteo de un producto Golden Horses.
+  Después de cada pregunta se reproduce un video corto de la marca.
+</p>
+
+<div class="flujo">
+  <div><b>1</b>Bienvenida</div>
+  <div><b>2</b>Deja sus datos</div>
+  <div><b>3</b>Pregunta</div>
+  <div><b>4</b>Video</div>
+  <div><b>5</b>×4 veces</div>
+  <div><b>6</b>Resultado</div>
+</div>
+
+<h2>Antes de abrir el stand</h2>
+<ul class="check">
+  <li><strong>Cargá la tablet al 100%</strong> y dejá el cargador enchufado durante la jornada.</li>
+  <li><strong>Conectate al wifi</strong> y comprobá que navega. Si el wifi del predio es malo,
+      compartí datos desde un celular.</li>
+  <li>Abrí <code>goldenhorses.com.ar/trivia</code> y jugá <strong>una partida completa de prueba</strong>
+      (después borrás ese registro desde el panel).</li>
+  <li><strong>Subí el volumen</strong> de la tablet casi al máximo: los videos tienen audio y en un
+      salón con ruido no se escuchan.</li>
+  <li>Poné el <strong>brillo al máximo</strong> y desactivá el bloqueo automático de pantalla
+      (Ajustes → Pantalla → Bloqueo automático → Nunca).</li>
+  <li><strong>Iniciá sesión en el panel</strong> (ver la última sección) para no tener que buscar la
+      contraseña en medio del evento.</li>
+  <li>Poné la tablet en <strong>modo avión desactivado, no molestar activado</strong>: que no entren
+      llamadas ni notificaciones arriba del juego.</li>
+</ul>
+
+<h2>Cómo atender a un participante</h2>
+<ol class="pasos">
+  <li>
+    <strong>Entregá la tablet en la pantalla de bienvenida</strong> y tocá <em>Comenzar</em>.
+    Si la pantalla anterior quedó en el resultado de otra persona, tocá primero
+    <em>Nuevo participante</em>.
+  </li>
+  <li>
+    <strong>Pedile el nombre y un contacto.</strong> El nombre es obligatorio y hace falta
+    al menos uno de los dos: email o teléfono. Podés cargarlo vos para ir más rápido, o
+    dejar que lo escriba la persona.
+  </li>
+  <li>
+    <strong>Que responda las 4 preguntas.</strong> Cada una tiene 3 opciones. Al tocar una, la
+    correcta se pinta en verde y, si se equivocó, la elegida queda en rojo.
+  </li>
+  <li>
+    <strong>El video arranca solo</strong> después de cada respuesta. Dura entre 17 y 31 segundos.
+    No hace falta verlo entero: el botón <em>Siguiente pregunta</em> está siempre disponible.
+  </li>
+  <li>
+    <strong>Al terminar aparece el puntaje.</strong> Con 2 o más aciertos, el mensaje le confirma
+    que entró al sorteo. Tocá <em>Nuevo participante</em> para el siguiente.
+  </li>
+</ol>
+
+<div class="caja">
+  <div class="caja-titulo">Se anota igual aunque no termine</div>
+  <p>
+    El contacto se guarda apenas completa el formulario, así que si alguien se va a mitad
+    de la partida <strong>el dato no se pierde</strong>. En el listado aparece marcado como
+    <em>sin terminar</em>.
+  </p>
+</div>
+
+<div class="caja alerta">
+  <div class="caja-titulo">Si alguien ya jugó antes</div>
+  <p>
+    Al cargar un mail o teléfono repetido aparece un aviso amarillo. Podés tocar
+    <em>Continuar igual</em> y lo deja jugar, pero va a quedar <strong>dos veces</strong> en el
+    listado. Decidan de antemano si permiten repetir o no.
+  </p>
+</div>
+
+<div class="pagina-nueva"></div>
+
+<h2>Cómo descargar los contactos</h2>
+
+<p>Se hace desde la misma pantalla del juego, sin salir ni entrar a otra dirección.</p>
+
+<ol class="pasos">
+  <li>
+    <strong>Mantené apretado el logo</strong> de Golden Horses (arriba de todo) durante
+    <strong>un segundo</strong>, hasta que se abra el panel.
+    <br>
+    <span style="color:var(--gris)">Si ya iniciaste sesión, aparece un botón <em>Panel</em> arriba
+    a la derecha y alcanza con tocarlo.</span>
+  </li>
+  <li>
+    <strong>La primera vez pide email y contraseña.</strong> Son los mismos del panel de
+    administración del sitio. Después queda la sesión guardada en esa tablet.
+  </li>
+  <li>
+    <strong>Elegí qué descargar.</strong> Se baja un archivo CSV que se abre con Excel:
+    <table>
+      <tr><th style="width:33%">Botón</th><th>Qué trae</th></tr>
+      <tr><td><strong>Los de hoy</strong></td><td>Solo los que jugaron en la jornada de hoy. Es el que van a usar al cerrar cada día.</td></tr>
+      <tr><td><strong>Todos</strong></td><td>El acumulado de todos los días.</td></tr>
+      <tr><td><strong>Ganadores</strong></td><td>Solo los que acertaron 2 o más y entran al sorteo.</td></tr>
+    </table>
+  </li>
+</ol>
+
+<p>Arriba del todo el panel muestra cuántos jugaron hoy, cuántos ganaron, el total acumulado
+y el último registro con la hora. Ese último dato sirve para confirmar de un vistazo que se
+está guardando bien.</p>
+
+<div class="caja ok">
+  <div class="caja-titulo">Recomendación</div>
+  <p>
+    Descargá <strong>"Los de hoy" al cerrar cada jornada</strong> y guardá el archivo.
+    Así, si pasa algo con la tablet o con la conexión, ya tenés los contactos del día a salvo.
+  </p>
+</div>
+
+<h2>Si algo no funciona</h2>
+
+<table>
+  <tr>
+    <th style="width:36%">Qué pasa</th>
+    <th>Qué hacer</th>
+  </tr>
+  <tr>
+    <td>El video no tiene sonido y aparece un botón amarillo</td>
+    <td>Tocá <strong>"Tocá acá para activar el sonido"</strong>. Pasa cuando el navegador
+        bloquea el audio automático. Comprobá también el volumen físico de la tablet.</td>
+  </tr>
+  <tr>
+    <td>Dice <strong>"No se pudo cargar el video"</strong></td>
+    <td>El juego sigue funcionando igual: tocá <em>Siguiente pregunta</em>. Suele ser un
+        problema momentáneo de conexión. Si pasa con todos los videos, recargá la página.</td>
+  </tr>
+  <tr>
+    <td>Aparece un aviso de <strong>registros sin subir</strong></td>
+    <td>Se cortó la conexión y los datos quedaron guardados en la tablet. Recuperá el wifi y
+        tocá <strong>Subir ahora</strong> en el panel. <u>No borres los datos del navegador</u>
+        hasta que ese aviso desaparezca.</td>
+  </tr>
+  <tr>
+    <td>La pantalla quedó trabada o rara</td>
+    <td>Recargá la página (deslizá hacia abajo o tocá el botón de recargar). No se pierde nada:
+        los participantes ya registrados están en el servidor.</td>
+  </tr>
+  <tr>
+    <td>Se cortó internet por completo</td>
+    <td>El juego <strong>sigue funcionando</strong> y va guardando todo en la tablet. Cuando
+        vuelva la conexión se sube solo. No cierres la pestaña ni borres el historial.</td>
+  </tr>
+  <tr>
+    <td>Alguien se fue sin terminar</td>
+    <td>Nada que hacer: el contacto ya quedó guardado. Tocá <em>Nuevo participante</em>
+        (o recargá la página) y seguí con el siguiente.</td>
+  </tr>
+</table>
+
+<h2>Al cerrar la jornada</h2>
+<ul class="check">
+  <li>Verificá que <strong>no quede el aviso de registros sin subir</strong>. Si está, conectate al wifi y tocá <em>Subir ahora</em>.</li>
+  <li>Descargá el CSV de <strong>"Los de hoy"</strong> y guardalo o mandátelo por mail.</li>
+  <li>Anotá cuántos participaron, para cruzarlo después con el archivo.</li>
+  <li>Si la tablet queda guardada sin vigilancia, <strong>cerrá sesión</strong> desde el panel:
+      cualquiera que la agarre podría descargar los contactos.</li>
+</ul>
+
+<div class="caja alerta">
+  <div class="caja-titulo">Importante sobre los datos</div>
+  <p>
+    El archivo tiene nombres, mails y teléfonos de personas reales. Compartilo solo con quien
+    tenga que usarlo y guardalo en un lugar seguro.
+  </p>
+</div>
+
+<h2>Datos de acceso</h2>
+<table>
+  <tr><td style="width:34%"><strong>Dirección del juego</strong></td><td>goldenhorses.com.ar/trivia</td></tr>
+  <tr><td><strong>Abrir el panel</strong></td><td>Mantener apretado el logo 1 segundo</td></tr>
+  <tr><td><strong>Usuario</strong></td><td style="color:var(--gris)">_______________________________________</td></tr>
+  <tr><td><strong>Contraseña</strong></td><td style="color:var(--gris)">_______________________________________</td></tr>
+  <tr><td><strong>A quién llamar</strong></td><td style="color:var(--gris)">_______________________________________</td></tr>
+</table>
+
+<p style="font-size:9pt;color:var(--gris)">
+  Completá los últimos campos a mano antes del evento. No conviene imprimir la contraseña en
+  muchas copias: alcanza con una, en poder del responsable del stand.
+</p>
+
+<div class="pie">
+  Golden Horses — Agropecuaria Los Nonos S.R.L. · Instructivo de la trivia para eventos
+</div>
+
+</body>
+</html>
