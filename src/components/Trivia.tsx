@@ -7,6 +7,8 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { useSeccion } from '../lib/content'
 import { Seo } from '../lib/seo'
+import { useAuth } from '../lib/auth'
+import { TriviaStaff } from './TriviaStaff'
 import {
   elegirPreguntas,
   registrarParticipante,
@@ -21,6 +23,9 @@ type Fase = 'intro' | 'datos' | 'pregunta' | 'video' | 'resultado'
 
 const DATOS_VACIOS: DatosParticipante = { nombre: '', email: '', telefono: '', consentimiento: false }
 
+/** Milisegundos de pulsación sostenida sobre el logo para abrir el panel. */
+const MS_PULSACION_LARGA = 900
+
 /**
  * Marco común: fondo negro con el logo arriba.
  *
@@ -31,21 +36,58 @@ const DATOS_VACIOS: DatosParticipante = { nombre: '', email: '', telefono: '', c
  *
  * Se usa `dvh` en vez de `vh` porque en móvil la barra del navegador entra y
  * sale, y `vh` no la contempla.
+ *
+ * El logo abre el panel del operador si se lo mantiene apretado: es un gesto
+ * que un participante no hace sin querer, y así el stand puede bajar el CSV
+ * sin salir del juego. Con sesión iniciada aparece además un botón visible,
+ * porque a esa altura solo lo ve alguien del equipo.
  */
 function Pantalla({ children, ajustado = false }: { children: ReactNode; ajustado?: boolean }) {
+  const { session } = useAuth()
+  const [staffAbierto, setStaffAbierto] = useState(false)
+  const timer = useRef<number | null>(null)
+
+  const iniciarPulsacion = () => {
+    timer.current = window.setTimeout(() => setStaffAbierto(true), MS_PULSACION_LARGA)
+  }
+  const cancelarPulsacion = () => {
+    if (timer.current !== null) { clearTimeout(timer.current); timer.current = null }
+  }
+  useEffect(() => cancelarPulsacion, [])
+
   return (
     <div
-      className={`bg-black flex flex-col items-center px-5
+      className={`bg-black flex flex-col items-center px-5 relative
                   ${ajustado ? 'h-[100dvh] overflow-hidden py-4' : 'min-h-[100dvh] py-8'}`}
     >
       <img
         src="/image/logo.webp"
         alt="Golden Horses"
-        className={`object-contain flex-shrink-0 ${ajustado ? 'h-12 mb-3' : 'h-16 md:h-20 mb-8'}`}
+        draggable={false}
+        onPointerDown={iniciarPulsacion}
+        onPointerUp={cancelarPulsacion}
+        onPointerLeave={cancelarPulsacion}
+        onPointerCancel={cancelarPulsacion}
+        onContextMenu={e => e.preventDefault()}
+        className={`object-contain flex-shrink-0 select-none ${ajustado ? 'h-12 mb-3' : 'h-16 md:h-20 mb-8'}`}
       />
+
+      {session && (
+        <button
+          onClick={() => setStaffAbierto(true)}
+          className="absolute top-3 right-3 font-condensed text-gold/45 hover:text-gold
+                     text-xs tracking-[1.5px] uppercase border border-gold/25 rounded-lg px-3 py-1.5
+                     transition-colors"
+        >
+          Panel
+        </button>
+      )}
+
       <div className={`w-full max-w-2xl flex flex-col min-h-0 ${ajustado ? 'flex-1' : 'flex-1 justify-center'}`}>
         {children}
       </div>
+
+      {staffAbierto && <TriviaStaff onCerrar={() => setStaffAbierto(false)} />}
     </div>
   )
 }

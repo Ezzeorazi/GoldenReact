@@ -6,25 +6,12 @@ import type { TriviaParticipante } from '../../lib/types'
 import {
   fetchParticipantes,
   deleteParticipante,
-  participantesToCsv,
+  descargarCsvParticipantes,
   pendientesEnCola,
   sincronizarPendientes,
 } from '../../lib/trivia'
 import { isSupabaseConfigured } from '../../lib/supabase'
 import { Card, Input, Btn, StatusMsg } from './ui'
-
-function descargarCsv(rows: TriviaParticipante[]) {
-  // El BOM hace que Excel abra el archivo como UTF-8 y no rompa los acentos.
-  const blob = new Blob(['﻿' + participantesToCsv(rows)], { type: 'text/csv;charset=utf-8;' })
-  const url  = URL.createObjectURL(blob)
-  const a    = document.createElement('a')
-  a.href     = url
-  a.download = `trivia-participantes-${new Date().toISOString().slice(0, 10)}.csv`
-  document.body.appendChild(a)
-  a.click()
-  document.body.removeChild(a)
-  URL.revokeObjectURL(url)
-}
 
 export function TriviaParticipantes() {
   const [rows, setRows]       = useState<TriviaParticipante[]>([])
@@ -86,7 +73,7 @@ export function TriviaParticipantes() {
         <h2 className="font-condensed font-bold text-gold tracking-[2px] uppercase text-3xl">Participantes</h2>
         <div className="flex gap-2 flex-wrap">
           <Btn variant="ghost" onClick={() => void cargar()}>Actualizar</Btn>
-          <Btn onClick={() => descargarCsv(filtrados)} disabled={filtrados.length === 0}>Descargar CSV</Btn>
+          <Btn onClick={() => descargarCsvParticipantes(filtrados)} disabled={filtrados.length === 0}>Descargar CSV</Btn>
         </div>
       </div>
 

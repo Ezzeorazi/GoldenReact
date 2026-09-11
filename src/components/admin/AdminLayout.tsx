@@ -46,6 +46,20 @@ export function AdminLayout() {
           ))}
         </nav>
 
+        {/* La trivia vive fuera del admin (es la pantalla del stand), por eso
+            va como enlace aparte y se abre en otra pestaña. */}
+        <div className="px-3 pb-3">
+          <a
+            href="/trivia"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block text-center font-condensed tracking-[1.5px] uppercase text-sm px-4 py-3
+                       rounded-lg border border-gold/30 text-gold/80 hover:bg-gold/10 transition-colors"
+          >
+            Abrir trivia ↗
+          </a>
+        </div>
+
         <div className="mt-auto p-3 border-t border-gold/15 hidden md:block">
           <p className="font-condensed text-gold/40 text-xs px-2 mb-2 truncate">{session?.user.email}</p>
           <button

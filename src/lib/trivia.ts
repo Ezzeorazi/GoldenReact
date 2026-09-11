@@ -276,10 +276,7 @@ function celda(v: string | number | boolean): string {
   return /[";\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s
 }
 
-/**
- * CSV separado por `;`, que es lo que espera Excel en español.
- * El BOM lo agrega quien descarga (ver TriviaParticipantes.tsx).
- */
+/** CSV separado por `;`, que es lo que espera Excel en español. */
 export function participantesToCsv(rows: TriviaParticipante[]): string {
   const head = ['Nombre', 'Email', 'Teléfono', 'Aciertos', 'Total', 'Ganó', 'Finalizó', 'Consentimiento', 'Fecha']
   const body = rows.map(r => [
@@ -294,4 +291,32 @@ export function participantesToCsv(rows: TriviaParticipante[]): string {
     celda(new Date(r.created_at).toLocaleString('es-AR')),
   ].join(';'))
   return [head.join(';'), ...body].join('\r\n')
+}
+
+/** Fecha local en formato AAAA-MM-DD, para comparar días y nombrar archivos. */
+export function diaLocal(fecha: Date | string = new Date()): string {
+  const d = typeof fecha === 'string' ? new Date(fecha) : fecha
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+
+/** Participantes registrados hoy (hora local del dispositivo del stand). */
+export function deHoy(rows: TriviaParticipante[]): TriviaParticipante[] {
+  const hoy = diaLocal()
+  return rows.filter(r => diaLocal(r.created_at) === hoy)
+}
+
+/**
+ * Dispara la descarga del CSV. El BOM inicial hace que Excel lo abra como
+ * UTF-8 y no rompa los acentos.
+ */
+export function descargarCsvParticipantes(rows: TriviaParticipante[], sufijo = ''): void {
+  const blob = new Blob(['﻿' + participantesToCsv(rows)], { type: 'text/csv;charset=utf-8;' })
+  const url  = URL.createObjectURL(blob)
+  const a    = document.createElement('a')
+  a.href     = url
+  a.download = `trivia-participantes${sufijo ? '-' + sufijo : ''}-${diaLocal()}.csv`
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  URL.revokeObjectURL(url)
 }
