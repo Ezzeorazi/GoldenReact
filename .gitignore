@@ -26,3 +26,6 @@ yarn-error.log*
 
 # Local Netlify folder
 .netlify
+
+# Videos originales sin comprimir de la trivia (respaldo local)
+video-originales/

@@ -7,6 +7,9 @@ const LINKS = [
   { to: '/admin/productos',  label: 'Productos',     end: false },
   { to: '/admin/conocenos',  label: 'Quiénes somos', end: false },
   { to: '/admin/beneficios', label: 'Beneficios',    end: false },
+  { to: '/admin/destacado',  label: 'Destacado',     end: false },
+  { to: '/admin/trivia',     label: 'Trivia',        end: false },
+  { to: '/admin/participantes', label: 'Participantes', end: false },
 ]
 
 export function AdminLayout() {

@@ -8,6 +8,7 @@ import { Productos } from '../Productos'
 import { Beneficios } from '../Beneficios'
 import { InfoNutricional } from '../InfoNutricional'
 import { NotFound } from '../NotFound'
+import { Trivia } from '../Trivia'
 import { AuthProvider } from '../../lib/auth'
 import { ProtectedRoute } from '../admin/ProtectedRoute'
 import { AdminLayout } from '../admin/AdminLayout'
@@ -18,6 +19,8 @@ import { ProductosAdmin } from '../admin/ProductosAdmin'
 import { ConocenosAdmin } from '../admin/ConocenosAdmin'
 import { BeneficiosAdmin } from '../admin/BeneficiosAdmin'
 import { DestacadoAdmin } from '../admin/DestacadoAdmin'
+import { TriviaAdmin } from '../admin/TriviaAdmin'
+import { TriviaParticipantes } from '../admin/TriviaParticipantes'
 
 /** Layout del sitio público: header + contenido + footer. */
 function PublicLayout() {
@@ -48,10 +51,16 @@ export function RouterPrincipal() {
               <Route path="conocenos"  element={<ConocenosAdmin />} />
               <Route path="beneficios" element={<BeneficiosAdmin />} />
               <Route path="destacado"  element={<DestacadoAdmin />} />
+              <Route path="trivia"     element={<TriviaAdmin />} />
+              <Route path="participantes" element={<TriviaParticipantes />} />
             </Route>
           </Route>
 
           {/* ── Sitio público ── */}
+          {/* Trivia de eventos: pantalla completa, sin header ni footer, para
+              que en la tablet del stand nadie navegue fuera del juego. */}
+          <Route path="/trivia" element={<Trivia />} />
+
           <Route element={<PublicLayout />}>
             <Route path="/"                element={<Inicio />} />
             <Route path="/inicio"          element={<Navigate to="/" replace />} />

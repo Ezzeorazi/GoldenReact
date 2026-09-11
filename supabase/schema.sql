@@ -181,3 +181,117 @@ values
     ]
   }'::jsonb)
 on conflict (clave) do nothing;
+
+-- ============================================================================
+-- Trivia de eventos — participantes del sorteo
+-- ============================================================================
+-- El público juega sin loguearse, así que escribe con el rol `anon`. La anon
+-- key viaja en el bundle del navegador: si le diéramos select/update directo a
+-- la tabla, cualquiera podría bajarse todos los contactos o alterar resultados.
+-- Por eso la tabla queda cerrada para anon y todo pasa por tres funciones
+-- `security definer` que exponen lo mínimo indispensable.
+
+create table if not exists public.trivia_participantes (
+  id             uuid primary key default gen_random_uuid(),
+  nombre         text not null,
+  email          text        default '',
+  telefono       text        default '',
+  consentimiento boolean     default false,
+  aciertos       int         default 0,
+  total          int         default 0,
+  gano           boolean     default false,
+  finalizado     boolean     default false,   -- false = abandonó a mitad de partida
+  respuestas     jsonb       default '[]'::jsonb,
+  created_at     timestamptz default now(),
+  updated_at     timestamptz default now()
+);
+
+create index if not exists trivia_participantes_email_idx
+  on public.trivia_participantes (lower(email)) where email <> '';
+create index if not exists trivia_participantes_telefono_idx
+  on public.trivia_participantes (telefono) where telefono <> '';
+create index if not exists trivia_participantes_created_idx
+  on public.trivia_participantes (created_at desc);
+
+alter table public.trivia_participantes enable row level security;
+
+-- Solo el admin logueado ve y administra los contactos.
+drop policy if exists "trivia participantes admin" on public.trivia_participantes;
+create policy "trivia participantes admin"
+  on public.trivia_participantes for all
+  to authenticated using (true) with check (true);
+
+revoke all on public.trivia_participantes from anon;
+grant select, insert, update, delete on public.trivia_participantes to authenticated;
+
+-- ── RPC 1: ¿este contacto ya jugó? Devuelve solo un booleano, nunca datos. ──
+create or replace function public.trivia_existe_contacto(
+  p_email    text default '',
+  p_telefono text default ''
+) returns boolean
+language sql
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1 from public.trivia_participantes
+    where (nullif(trim(p_email), '')    is not null and lower(email) = lower(trim(p_email)))
+       or (nullif(trim(p_telefono), '') is not null and telefono     = trim(p_telefono))
+  );
+$$;
+
+-- ── RPC 2: alta del participante al enviar el formulario. Devuelve el id. ──
+create or replace function public.trivia_registrar(
+  p_nombre         text,
+  p_email          text default '',
+  p_telefono       text default '',
+  p_consentimiento boolean default false
+) returns uuid
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_id uuid;
+begin
+  if nullif(trim(p_nombre), '') is null then
+    raise exception 'El nombre es obligatorio';
+  end if;
+  if nullif(trim(p_email), '') is null and nullif(trim(p_telefono), '') is null then
+    raise exception 'Se requiere al menos un dato de contacto';
+  end if;
+
+  insert into public.trivia_participantes (nombre, email, telefono, consentimiento)
+  values (left(trim(p_nombre), 120), left(trim(p_email), 160), left(trim(p_telefono), 40), coalesce(p_consentimiento, false))
+  returning id into v_id;
+
+  return v_id;
+end;
+$$;
+
+-- ── RPC 3: cierre de la partida. Solo actualiza una vez (no se reescribe). ──
+create or replace function public.trivia_finalizar(
+  p_id         uuid,
+  p_aciertos   int,
+  p_total      int,
+  p_gano       boolean,
+  p_respuestas jsonb default '[]'::jsonb
+) returns void
+language sql
+security definer
+set search_path = public
+as $$
+  update public.trivia_participantes
+     set aciertos   = greatest(0, p_aciertos),
+         total      = greatest(0, p_total),
+         gano       = coalesce(p_gano, false),
+         respuestas = coalesce(p_respuestas, '[]'::jsonb),
+         finalizado = true,
+         updated_at = now()
+   where id = p_id
+     and finalizado = false;
+$$;
+
+grant execute on function public.trivia_existe_contacto(text, text)                to anon, authenticated;
+grant execute on function public.trivia_registrar(text, text, text, boolean)       to anon, authenticated;
+grant execute on function public.trivia_finalizar(uuid, int, int, boolean, jsonb)  to anon, authenticated;

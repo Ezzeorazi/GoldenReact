@@ -86,5 +86,63 @@ export interface DestacadoData {
   items: DestacadoItem[]
 }
 
+// ───────────────────────────── Trivia ─────────────────────────────
+// Juego para stands en eventos: el participante deja sus datos, responde unas
+// pocas preguntas tomadas al azar del banco y, si acierta el mínimo, entra al
+// sorteo. Cada pregunta tiene su video.
+
+export interface TriviaPregunta {
+  /** Slug estable (p01, p02…). Se guarda en las respuestas del participante. */
+  id:       string
+  pregunta: string
+  /** Exactamente 3 opciones. */
+  opciones: string[]
+  /** Índice de la opción correcta (0-2). */
+  correcta: number
+  /** Ruta del video, p. ej. '/video/trivia-01.mp4'. */
+  video:    string
+  /** Texto opcional debajo del video. */
+  epigrafe: string
+  /** Permite sacar una pregunta del sorteo sin borrarla. */
+  activa:   boolean
+}
+
+export interface TriviaData {
+  heroTitulo:          string
+  heroSubtitulo:       string
+  /** Texto de la pantalla de bienvenida. */
+  reglas:              string
+  /** Cuántas preguntas se sortean por partida. */
+  preguntasPorPartida: number
+  /** Aciertos necesarios para entrar al sorteo. */
+  aciertosParaGanar:   number
+  textoGana:           string
+  textoPierde:         string
+  /** Leyenda del checkbox de consentimiento (opcional para el participante). */
+  legalTexto:          string
+  preguntas:           TriviaPregunta[]
+}
+
+/** Respuesta registrada de una partida. */
+export interface TriviaRespuesta {
+  preguntaId: string
+  elegida:    string
+  correcta:   boolean
+}
+
+/** Fila de `trivia_participantes` tal como la lee el panel /admin. */
+export interface TriviaParticipante {
+  id:             string
+  nombre:         string
+  email:          string
+  telefono:       string
+  consentimiento: boolean
+  aciertos:       number
+  total:          number
+  gano:           boolean
+  finalizado:     boolean
+  created_at:     string
+}
+
 /** Claves de la tabla `secciones`. */
-export type SeccionClave = 'inicio' | 'conocenos' | 'beneficios' | 'destacado'
+export type SeccionClave = 'inicio' | 'conocenos' | 'beneficios' | 'destacado' | 'trivia'

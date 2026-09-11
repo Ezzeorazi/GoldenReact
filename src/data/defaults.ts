@@ -3,7 +3,7 @@
 //   2. Se muestra mientras cargan los datos remotos (sin parpadeos vacíos).
 //   3. Es la misma información que se inserta como seed en supabase/schema.sql.
 
-import type { Producto, ConocenosData, BeneficiosData, InicioData, DestacadoData } from '../lib/types'
+import type { Producto, ConocenosData, BeneficiosData, InicioData, DestacadoData, TriviaData } from '../lib/types'
 
 export const INICIO_DEFAULT: InicioData = {
   waNumero: '5493471621535',
@@ -134,5 +134,153 @@ export const BENEFICIOS_DEFAULT: BeneficiosData = {
     { titulo: 'Alta Palatabilidad',    icono: '/image/elementos web golden horses-11.png', descripcion: 'Alta palatabilidad y provisión energética por la presencia de soja extrusada. Proteínas de alto valor biológico para máxima digestibilidad.' },
     { titulo: 'Desarrollo Muscular',   icono: '/image/elementos web golden horses-12.png', descripcion: 'Los nutrientes se absorben eficientemente, estimulando el desarrollo de masa muscular magra y la vitalidad sostenida de forma natural.' },
     { titulo: 'Libre de Micotoxinas',  icono: '/image/elementos web golden horses-13.png', descripcion: 'Control de calidad riguroso desde el campo: menor dependencia de granos de cereal, menor riesgo de micotoxinas y nutrición más segura.' },
+  ],
+}
+
+
+
+// Banco de preguntas de la trivia de eventos. Se editan desde /admin/trivia.
+// Varias preguntas pueden compartir el mismo video: el sorteo se encarga de
+// que no salgan dos con el mismo video en la misma partida.
+export const TRIVIA_DEFAULT: TriviaData = {
+  heroTitulo:          'Trivia Golden Horses',
+  heroSubtitulo:       'Jugá, aprendé y participá del sorteo',
+  reglas:              'Respondé 4 preguntas sobre nutrición equina. Con 2 respuestas correctas ya participás del sorteo de un producto Golden Horses. Después de cada pregunta te mostramos un video corto.',
+  preguntasPorPartida: 4,
+  aciertosParaGanar:   2,
+  textoGana:           '¡Felicitaciones! Ya estás participando del sorteo de un producto Golden Horses. Te contactamos si resultás ganador.',
+  textoPierde:         'Gracias por jugar. Esta vez no alcanzaste los aciertos necesarios, pero te esperamos en el stand para contarte más sobre Golden Horses.',
+  legalTexto:          'Acepto las bases del sorteo y que Golden Horses use mis datos para contactarme.',
+  preguntas: [
+    {
+      id: 'p01',
+      pregunta: '¿Qué significa que Golden Horses tenga "alta palatabilidad"?',
+      opciones: [
+        'Que tiene mucha melaza',
+        'Que es muy rico y agradable para el caballo',
+        'Que tiene más azúcar',
+      ],
+      correcta: 1,
+      video: '/video/GOLDEN%20HORSES.mp4',
+      epigrafe: 'La palatabilidad es qué tan rico y agradable le resulta el alimento al caballo.',
+      activa: true,
+    },
+    {
+      id: 'p02',
+      pregunta: '¿Cuál de estos ingredientes aporta fibra de calidad a Golden Horses?',
+      opciones: [
+        'Cáscara de soja y alfalfa',
+        'Trigo y avena',
+        'Arroz y cebada',
+      ],
+      correcta: 0,
+      video: '/video/GOLDEN%20HORSES_1.mp4',
+      epigrafe: 'La cáscara de soja y la alfalfa son las que aportan la fibra de calidad.',
+      activa: true,
+    },
+    {
+      id: 'p03',
+      pregunta: '¿Qué porcentaje de digestibilidad tiene Golden Horses?',
+      opciones: [
+        'Más del 70%',
+        'Más del 80%',
+        'Más del 86%',
+      ],
+      correcta: 2,
+      video: '/video/GOLDEN%20HORSES_2.mp4',
+      epigrafe: 'Golden Horses supera el 86% de digestibilidad.',
+      activa: true,
+    },
+    {
+      id: 'p04',
+      pregunta: '¿Qué significa que un alimento tenga más del 86% de digestibilidad?',
+      opciones: [
+        'Que el caballo aprovecha mejor los nutrientes',
+        'Que el caballo come menos cantidad',
+        'Que contiene más melaza',
+      ],
+      correcta: 0,
+      video: '/video/GOLDEN%20HORSES_2.mp4',
+      epigrafe: 'A mayor digestibilidad, mejor aprovecha el caballo los nutrientes de cada ración.',
+      activa: true,
+    },
+    {
+      id: 'p05',
+      pregunta: '¿De dónde proviene la proteína de alta calidad de Golden Horses?',
+      opciones: [
+        'De soja extrusada',
+        'De maíz crudo',
+        'De alfalfa únicamente',
+      ],
+      correcta: 0,
+      video: '/video/GOLDEN%20HORSES_1.mp4',
+      epigrafe: 'La proteína de alto valor biológico viene de la soja extrusada.',
+      activa: true,
+    },
+    {
+      id: 'p06',
+      pregunta: '¿Para qué sirve el proceso de extrusión del maíz y la soja?',
+      opciones: [
+        'Para agregar azúcar',
+        'Para mejorar la digestibilidad y el aprovechamiento de nutrientes',
+        'Para que el alimento tenga más melaza',
+      ],
+      correcta: 1,
+      video: '/video/GOLDEN%20HORSES_4.mp4',
+      epigrafe: 'La extrusión mejora la digestibilidad y el aprovechamiento de los nutrientes.',
+      activa: true,
+    },
+    {
+      id: 'p07',
+      pregunta: '¿Qué característica tiene Golden Horses respecto de la melaza?',
+      opciones: [
+        'Tiene poca melaza',
+        'Tiene melaza natural',
+        'No tiene melaza',
+      ],
+      correcta: 2,
+      video: '/video/GOLDEN%20HORSES.mp4',
+      epigrafe: 'Golden Horses no lleva melaza.',
+      activa: true,
+    },
+    {
+      id: 'p08',
+      pregunta: '¿Por qué se recomienda utilizar un slow feeder?',
+      opciones: [
+        'Para que el caballo coma más rápido',
+        'Para ayudar a que coma más despacio y reducir el estrés digestivo',
+        'Para reemplazar el heno',
+      ],
+      correcta: 1,
+      video: '/video/GOLDEN%20HORSES_7.mp4',
+      epigrafe: 'El slow feeder hace que el caballo coma más despacio y reduce el estrés digestivo.',
+      activa: true,
+    },
+    {
+      id: 'p09',
+      pregunta: '¿Qué permite la trazabilidad de Golden Horses?',
+      opciones: [
+        'Saber de dónde viene cada grano y controlar su calidad',
+        'Saber cuánto pesa cada caballo',
+        'Saber qué caballo comerá cada bolsa',
+      ],
+      correcta: 0,
+      video: '/video/GOLDEN%20HORSES_3.mp4',
+      epigrafe: 'La trazabilidad permite saber de dónde viene cada grano y controlar su calidad.',
+      activa: true,
+    },
+    {
+      id: 'p10',
+      pregunta: '¿Cómo se debe cambiar de balanceado?',
+      opciones: [
+        'De un día para el otro',
+        'Mezclando progresivamente el alimento anterior con el nuevo',
+        'Dejando de darle alimento durante un día',
+      ],
+      correcta: 1,
+      video: '/video/GOLDEN%20HORSES_6.mp4',
+      epigrafe: 'El cambio se hace mezclando progresivamente el alimento anterior con el nuevo.',
+      activa: true,
+    },
   ],
 }

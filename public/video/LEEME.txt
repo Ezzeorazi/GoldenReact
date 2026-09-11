@@ -1,0 +1,47 @@
+Videos de la trivia (/trivia)
+=============================
+
+Mapeo actual (se edita en /admin/trivia, campo "Ruta del video"):
+
+  Pregunta  1  palatabilidad          -> GOLDEN HORSES.mp4
+  Pregunta  7  melaza                 -> GOLDEN HORSES.mp4
+  Pregunta  2  fibra de calidad       -> GOLDEN HORSES_1.mp4
+  Pregunta  5  proteina / soja        -> GOLDEN HORSES_1.mp4
+  Pregunta  3  digestibilidad 86%     -> GOLDEN HORSES_2.mp4
+  Pregunta  4  que significa el 86%   -> GOLDEN HORSES_2.mp4
+  Pregunta  9  trazabilidad           -> GOLDEN HORSES_3.mp4
+  Pregunta  6  extrusion              -> GOLDEN HORSES_4.mp4
+  Pregunta 10  cambio de balanceado   -> GOLDEN HORSES_6.mp4
+  Pregunta  8  slow feeder            -> GOLDEN HORSES_7.mp4
+
+Son 7 videos distintos para 10 preguntas. Como cada partida usa 4 preguntas y
+el sorteo evita repetir video, al participante nunca le sale el mismo dos veces.
+
+SIN USAR: GOLDEN HORSES_5.mp4 y GOLDEN HORSES_8.mp4
+
+Nombres con espacios
+--------------------
+En el codigo las rutas van con el espacio codificado como %20, por ejemplo:
+
+  /video/GOLDEN%20HORSES_1.mp4
+
+Si renombras un archivo, actualiza la ruta en /admin/trivia usando %20 en
+lugar del espacio (o mejor: renombra sin espacios y sin mayusculas).
+
+Peso
+----
+Los 7 archivos suman ~23 MB (originales: 129 MB). Estan comprimidos a
+720x1280 H.264 CRF 24 + AAC 96k, con -movflags +faststart para que empiecen
+a reproducirse antes de terminar de descargarse.
+
+Los originales sin comprimir quedaron en ../../video-originales/ (esa carpeta
+esta en .gitignore: NO se sube al repo ni se publica).
+
+Para recomprimir despues de reemplazar un video:
+
+  ffmpeg -i "entrada.mp4" -vf "scale=720:1280:flags=lanczos"     -c:v libx264 -preset medium -crf 24 -pix_fmt yuv420p     -c:a aac -b:a 96k -movflags +faststart "salida.mp4"
+
+Formato
+-------
+Son verticales (9:16, tipo reel). La pantalla del juego los muestra centrados
+y limitados en altura para que entren enteros sin scroll.
